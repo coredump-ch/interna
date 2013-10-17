@@ -1,0 +1,6 @@
+*.pyc
+*.sw[opq]
+.coverage
+*.egg-info
+.cache/
+__pycache__
