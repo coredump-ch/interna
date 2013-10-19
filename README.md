@@ -1,6 +1,8 @@
 Coredump Interna
 ================
 
+[![Build Status](https://travis-ci.org/coredump-ch/interna.png?branch=master)](https://travis-ci.org/coredump-ch/interna)
+
 Interne Platform für Mitgliederverwaltung etc...
 
 Dev setup
