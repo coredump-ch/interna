@@ -4,3 +4,8 @@ South==0.8.2
 Unipath==1.0
 dj-database-url==0.2.2
 django-messagegroups==0.4.1
+django-extensions==1.2.3
+pytest==2.4.2
+pytest-cov==1.6
+pytest-django==2.3.1
+pytest-pep8==1.0.5
