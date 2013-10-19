@@ -1,4 +1,5 @@
 {% load messagegroups %}
+{% load tabs %}
 <!doctype html>                                                                                                                                       
 <html lang="en">
 <head>
@@ -29,27 +30,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">coredump</a>
+                <a class="navbar-brand" href="/">coredump</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Mitglieder</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    {% if user.is_authenticated %}
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ user.username }} <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Profile</a></li>
-                                <li><a href="{% url 'logout' %}">Logout</a></li>
-                            </ul>
-                        </li>
-                    {% else %}
-                        <li><a href="#">Login</a></li>
-                    {% endif %}
-                </ul>
-            </div><!--/.nav-collapse -->
+            {% block navigation %}
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="{% ifactivetab 'navigation' 'home' %}active{% endifactivetab %}"><a href="#">Home</a></li>
+                        <li class="{% ifactivetab 'navigation' 'members' %}active{% endifactivetab %}"><a href="{% url 'members' %}">Mitglieder</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ user.username }} <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Profile</a></li>
+                                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li><a href="#">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div><!--/.nav-collapse -->
+            {% endblock %}
         </div>
     </div>
 

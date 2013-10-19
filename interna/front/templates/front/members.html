@@ -1,0 +1,14 @@
+{% extends 'front/base.html' %}
+{% load tabs %}
+
+{% block bodyclass %}members{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'members' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1>Mitglieder</h1>
+    <p>Unsere aktuellen Mitglieder:</p>
+{% endblock %}

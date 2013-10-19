@@ -5,6 +5,9 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.views.generic.base import View, TemplateView
+from django.views.generic.list import ListView
+
+from memberdb import models
 
 
 class HomeView(TemplateView):
@@ -18,3 +21,9 @@ class LogoutView(View):
         logout(request)
         messages.add_message(request, messages.SUCCESS, 'You have successfully logged out.')
         return redirect('home')
+
+
+class MembersView(ListView):
+    """List members."""
+    template_name = 'front/members.html'
+    model = models.Member

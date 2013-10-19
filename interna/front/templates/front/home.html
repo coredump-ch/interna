@@ -1,6 +1,12 @@
 {% extends 'front/base.html' %}
+{% load tabs %}
 
 {% block bodyclass %}home{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'home' %}
+    {{ block.super }}
+{% endblock %}
 
 {% block content %}
     <h1>Hallo</h1>
