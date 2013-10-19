@@ -10,5 +10,28 @@
 
 {% block content %}
     <h1>Mitglieder</h1>
-    <p>Unsere aktuellen Mitglieder:</p>
+
+    <p>Unsere aktuellen Mitglieder. Um Einträge zu ändern oder neue Mitglieder
+    hinzuzufügen, benutze das <a href="{% url 'admin:index' %}">Admin Interface</a>.</p>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Natel</th>
+            <th>Wohnort</th>
+        </thead>
+        <tbody>
+            {% for member in object_list %}
+                <tr>
+                    <td>{{ member.id }}</td>
+                    <td>{{ member.name }}</td>
+                    <td>{{ member.email }}</td>
+                    <td>{{ member.phone }}</td>
+                    <td>{{ member.city }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
