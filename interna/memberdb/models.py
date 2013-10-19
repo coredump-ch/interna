@@ -7,15 +7,23 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Q
 
+from model_utils import Choices
+
 from . import managers
 
 
 class Member(models.Model):
+    CATEGORY = Choices(
+        (1, 'verdiener', 'Verdiener'),
+        (2, 'nichtverdiener', 'Nichtverdiener'),
+    )
+
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=16, blank=True)
     city = models.CharField(max_length=100, blank=True)
+    category = models.PositiveSmallIntegerField(choices=CATEGORY)
 
     class Meta:
         ordering = ('name', 'id')
