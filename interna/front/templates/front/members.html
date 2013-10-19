@@ -14,6 +14,8 @@
     <p>Unsere aktuellen Mitglieder. Um Einträge zu ändern oder neue Mitglieder
     hinzuzufügen, benutze das <a href="{% url 'admin:index' %}">Admin Interface</a>.</p>
 
+    <h3>Aktivmitglieder</h3>
+
     <table class="table table-striped table-hover">
         <thead>
             <th>ID</th>
@@ -21,17 +23,51 @@
             <th>Email</th>
             <th>Natel</th>
             <th>Wohnort</th>
+            <th>Mitglied seit</th>
         </thead>
         <tbody>
             {% for member in object_list %}
-                <tr>
-                    <td>{{ member.id }}</td>
-                    <td>{{ member.name }}</td>
-                    <td>{{ member.email }}</td>
-                    <td>{{ member.phone }}</td>
-                    <td>{{ member.city }}</td>
-                </tr>
+                {% with membership=member.active_membership %}
+                    {% if membership %}
+                        <tr>
+                            <td>{{ member.id }}</td>
+                            <td>{{ member.name }}</td>
+                            <td>{{ member.email }}</td>
+                            <td>{{ member.phone }}</td>
+                            <td>{{ member.city }}</td>
+                            <td>{{ membership.start|date:"Y-d-m" }}</td>
+                        </tr>
+                    {% endif %}
+                {% endwith %}
             {% endfor %}
         </tbody>
     </table>
+
+    <h3>Ehemalige Mitglieder</h3>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Natel</th>
+            <th>Wohnort</th>
+            <th>Mitglied seit</th>
+        </thead>
+        <tbody>
+            {% for member in object_list %}
+                {% if not member.active_membership %}
+                    <tr>
+                        <td>{{ member.id }}</td>
+                        <td>{{ member.name }}</td>
+                        <td>{{ member.email }}</td>
+                        <td>{{ member.phone }}</td>
+                        <td>{{ member.city }}</td>
+                        <td>{{ membership.start }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}

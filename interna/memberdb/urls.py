@@ -1,6 +1,8 @@
-from django.conf.urls import patterns, include, url
+# -*- coding: utf-8 -*-
+from __future__ import print_function, division, absolute_import, unicode_literals
 
-from . import views
+from django.conf.urls import patterns
+#from django.conf.urls import include, url
 
-urlpatterns = patterns('',
-)
+
+urlpatterns = patterns('',)
