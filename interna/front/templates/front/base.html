@@ -1,0 +1,39 @@
+{% load messagegroups %}
+<!doctype html>                                                                                                                                       
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Page Title{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--[if lt IE 9]>
+    <script src="{{ STATIC_URL }}js/html5shiv.js"></script>
+    <![endif]-->
+    <script src="{{ STATIC_URL }}js/jquery-1.9.1.min.js"></script>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css">
+        <!--<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-theme.min.css">-->
+    {% endblock %}
+</head>
+
+<body class="{% block bodyclass %}{% endblock %}">
+
+    <div class="container">
+        <div id="header">
+            {% render_messages messages %}
+        </div>
+
+        <div id="main">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    {% block scripts %}
+        <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+        <script src="{{ STATIC_URL }}js/scripts.js"></script>
+    {% endblock scripts %}
+
+</body>
+</html>

@@ -146,8 +146,10 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
 
     'south',
+    'messagegroups',
 
     'memberdb',
+    'front',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
