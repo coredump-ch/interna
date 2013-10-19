@@ -26,18 +26,16 @@
             <th>Mitglied seit</th>
         </thead>
         <tbody>
-            {% for member in object_list %}
-                {% with membership=member.active_membership %}
-                    {% if membership %}
-                        <tr>
-                            <td>{{ member.id }}</td>
-                            <td>{{ member.name }}</td>
-                            <td>{{ member.email }}</td>
-                            <td>{{ member.phone }}</td>
-                            <td>{{ member.city }}</td>
-                            <td>{{ membership.start|date:"Y-d-m" }}</td>
-                        </tr>
-                    {% endif %}
+            {% for membership in active_memberships %}
+                {% with member=membership.Member %}
+                    <tr>
+                        <td>{{ member.id }}</td>
+                        <td>{{ member.name }}</td>
+                        <td>{{ member.email }}</td>
+                        <td>{{ member.phone }}</td>
+                        <td>{{ member.city }}</td>
+                        <td>{{ membership.start|date:"Y-m-d" }}</td>
+                    </tr>
                 {% endwith %}
             {% endfor %}
         </tbody>
@@ -55,8 +53,8 @@
             <th>Mitglied seit</th>
         </thead>
         <tbody>
-            {% for member in object_list %}
-                {% if not member.active_membership %}
+            {% for membership in expired_memberships %}
+                {% with member=membership.Member %}
                     <tr>
                         <td>{{ member.id }}</td>
                         <td>{{ member.name }}</td>
@@ -65,7 +63,7 @@
                         <td>{{ member.city }}</td>
                         <td>{{ membership.start }}</td>
                     </tr>
-                {% endif %}
+                {% endwith %}
             {% endfor %}
         </tbody>
     </table>

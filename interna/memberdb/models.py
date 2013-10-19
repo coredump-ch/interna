@@ -7,6 +7,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Q
 
+from . import managers
+
 
 class Member(models.Model):
     id = models.AutoField(primary_key=True)
@@ -14,17 +16,6 @@ class Member(models.Model):
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=16, blank=True)
     city = models.CharField(max_length=100, blank=True)
-
-    def active_membership(self):
-        """Return the active membership if available."""
-        today = datetime.today()
-        try:
-            return self.Membership.get(
-                Q(start__lte=today),
-                Q(end__gte=today) | Q(end__isnull=True)
-            )
-        except ObjectDoesNotExist:
-            return None
 
     class Meta:
         ordering = ('name', 'id')
@@ -38,8 +29,14 @@ class Membership(models.Model):
     start = models.DateField()
     end = models.DateField(null=True, blank=True)
 
+    # Custom managers
+    objects = models.Manager()
+    active = managers.MembershipActivityManager(active=True)
+    expired = managers.MembershipActivityManager(active=False)
+
     class Meta:
         ordering = ('-start', '-Member__pk')
+        get_latest_by = ('end', 'start')
 
     def __unicode__(self):
         parts = []

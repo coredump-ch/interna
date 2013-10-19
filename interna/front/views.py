@@ -23,7 +23,12 @@ class LogoutView(View):
         return redirect('home')
 
 
-class MembersView(ListView):
+class MembersView(TemplateView):
     """List members."""
     template_name = 'front/members.html'
-    model = models.Member
+
+    def get_context_data(self, **kwargs):
+        context = super(MembersView, self).get_context_data(**kwargs)
+        context['active_memberships'] = models.Membership.active.order_by('start', 'Member__id')
+        context['expired_memberships'] = models.Membership.expired.order_by('start', 'Member__id')
+        return context

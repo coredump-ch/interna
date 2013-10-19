@@ -8,18 +8,22 @@ from pytest import mark
 from .. import models
 
 
-class TestMemberModel(object):
+class TestMembershipModel(object):
 
     @mark.django_db
-    def test_active_membership(self):
+    def test_active_memberships(self):
         member = models.Member.objects.create(name='fritzli', email='fritzli@example.com')
-        membership = models.Membership.objects.create(Member=member,
+        models.Membership.objects.create(Member=member,
                 start=date(2013, 10, 10), end=None)
-        assert member.active_membership() == membership
+        models.Membership.objects.create(Member=member,
+                start=date(2013, 10, 10), end=date(2099, 10, 10))
+        assert models.Membership.active.count() == 2
+        assert models.Membership.expired.count() == 0
 
     @mark.django_db
-    def test_inactive_membership(self):
+    def test_inactive_memberships(self):
         member = models.Member.objects.create(name='fritzli', email='fritzli@example.com')
-        membership = models.Membership.objects.create(Member=member,
+        models.Membership.objects.create(Member=member,
                 start=date(2013, 10, 10), end=date(2013, 10, 12))
-        assert member.active_membership() is None
+        assert models.Membership.active.count() == 0
+        assert models.Membership.expired.count() == 1
