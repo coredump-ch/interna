@@ -11,3 +11,4 @@ pytest-django==2.3.1
 pytest-pep8==1.0.5
 django-model-utils==1.5.0
 model-mommy==1.1
+django-bootstrap-form==3.0
