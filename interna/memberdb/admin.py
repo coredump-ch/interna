@@ -6,8 +6,8 @@ from . import models
 
 
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'city')
-    search_fields = ('name', 'pk', 'emai', 'phone', 'city')
+    list_display = ('name', 'email', 'city', 'twitter', 'github')
+    search_fields = ('name', 'pk', 'emai', 'phone', 'city', 'twitter', 'github')
     list_filter = ('city', 'category')
 
 

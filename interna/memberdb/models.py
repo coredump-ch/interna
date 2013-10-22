@@ -21,7 +21,12 @@ class Member(models.Model):
     category = models.PositiveSmallIntegerField(choices=CATEGORY)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=16, blank=True)
-    city = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100, blank=True,
+        help_text='Wohnort')
+    twitter = models.CharField(max_length=32, blank=True,
+        help_text='Twitter Benutzername')
+    github = models.CharField(max_length=32, blank=True,
+        help_text='Github Benutzername')
 
     class Meta:
         ordering = ('name', 'id')

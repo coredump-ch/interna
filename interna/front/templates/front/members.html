@@ -23,6 +23,8 @@
             <th>Email</th>
             <th>Natel</th>
             <th>Wohnort</th>
+            <th>Twitter</th>
+            <th>Github</th>
             <th>Mitglied seit</th>
         </thead>
         <tbody>
@@ -31,9 +33,11 @@
                     <tr>
                         <td>{{ member.id }}</td>
                         <td>{{ member.name }}</td>
-                        <td>{{ member.email }}</td>
+                        <td>{{ member.email|urlize }}</td>
                         <td>{{ member.phone }}</td>
                         <td>{{ member.city }}</td>
+                        <td>{% if member.twitter %}<a href="https://twitter.com/{{ member.twitter }}">{{ member.twitter }}</a>{% endif %}</td>
+                        <td>{% if member.github %}<a href="https://github.com/{{ member.github }}">{{ member.github }}</a>{% endif %}</td>
                         <td>{{ membership.start|date:"Y-m-d" }}</td>
                     </tr>
                 {% endwith %}
@@ -48,9 +52,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Natel</th>
             <th>Wohnort</th>
-            <th>Mitglied seit</th>
         </thead>
         <tbody>
             {% for membership in expired_memberships %}
@@ -58,10 +60,8 @@
                     <tr>
                         <td>{{ member.id }}</td>
                         <td>{{ member.name }}</td>
-                        <td>{{ member.email }}</td>
-                        <td>{{ member.phone }}</td>
+                        <td>{{ member.email|urlize }}</td>
                         <td>{{ member.city }}</td>
-                        <td>{{ membership.start }}</td>
                     </tr>
                 {% endwith %}
             {% endfor %}
