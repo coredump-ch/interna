@@ -1,0 +1,21 @@
+{% extends 'front/base.html' %}
+{% load tabs bootstrap %}
+
+{% block bodyclass %}login{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'login' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1>Login</h1>
+
+    <form role="form" action="{% url 'django.contrib.auth.views.login' %}" method="post">
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        <button type="submit" class="btn btn-primary">Login</button>
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+
+{% endblock %}

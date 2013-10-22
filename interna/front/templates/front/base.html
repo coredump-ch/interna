@@ -49,7 +49,7 @@
                                 </ul>
                             </li>
                         {% else %}
-                            <li><a href="#">Login</a></li>
+                            <li class="{% ifactivetab 'navigation' 'login' %}active{% endifactivetab %}"><a href="{% url 'login' %}">Login</a></li>
                         {% endif %}
                     </ul>
                 </div><!--/.nav-collapse -->

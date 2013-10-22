@@ -42,3 +42,7 @@ Datenbankschema generieren::
 Entwicklungsserver starten::
 
     ./manage.py runserver
+
+Tests laufen lassen::
+
+    ./runtests.py
