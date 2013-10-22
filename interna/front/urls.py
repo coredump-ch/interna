@@ -8,5 +8,6 @@ urlpatterns = patterns('',
         {'template_name': 'front/login.html'}, name='login'),
     url(r'^auth/logout/$', views.LogoutView.as_view(), name='logout'),
     url(r'^members/$', views.MembersView.as_view(), name='members'),
+    url(r'^projects/$', views.ProjectsView.as_view(), name='projects'),
     url(r'^coupons/$', views.CouponsView.as_view(), name='coupons'),
 )

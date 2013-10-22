@@ -34,6 +34,11 @@ class MembersView(TemplateView):
         return context
 
 
+class ProjectsView(TemplateView):
+    """Embed project ideas etherpad."""
+    template_name = 'front/projects.html'
+
+
 class CouponsView(TemplateView):
     """Embed coupons etherpad."""
     template_name = 'front/coupons.html'
