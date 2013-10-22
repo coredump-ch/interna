@@ -32,3 +32,8 @@ class MembersView(TemplateView):
         context['active_memberships'] = models.Membership.active.order_by('start', 'Member__id')
         context['expired_memberships'] = models.Membership.expired.order_by('start', 'Member__id')
         return context
+
+
+class CouponsView(TemplateView):
+    """Embed coupons etherpad."""
+    template_name = 'front/coupons.html'

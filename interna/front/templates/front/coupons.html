@@ -1,0 +1,19 @@
+{% extends 'front/base.html' %}
+{% load tabs %}
+
+{% block bodyclass %}coupons{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'coupons' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1>Coupons</h1>
+
+    <p>Zugangskontrolle zu diesen Coupons ist aktuell nur via "security by
+    obscurity". Bitte URL zum Pad nicht weitergeben.</p>
+
+    <iframe id="coupons_iframe" name="embed_readwrite" src="http://etherpad.coredump.ch/p/coupons-37b0bfe0-3b11-11e3-aa6e-0800200c9a66?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false">
+    </iframe>
+{% endblock %}

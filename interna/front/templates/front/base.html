@@ -37,6 +37,7 @@
                     <ul class="nav navbar-nav">
                         <li class="{% ifactivetab 'navigation' 'home' %}active{% endifactivetab %}"><a href="{% url 'home' %}">Home</a></li>
                         <li class="{% ifactivetab 'navigation' 'members' %}active{% endifactivetab %}"><a href="{% url 'members' %}">Mitglieder</a></li>
+                        <li class="{% ifactivetab 'navigation' 'coupons' %}active{% endifactivetab %}"><a href="{% url 'coupons' %}">Coupons</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
