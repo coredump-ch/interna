@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 from django.views.generic.base import View, TemplateView
 from django.views.generic.list import ListView
 
+from front.mixins import LoginRequiredMixin
 from memberdb import models
 
 
@@ -23,7 +24,7 @@ class LogoutView(View):
         return redirect('home')
 
 
-class MembersView(TemplateView):
+class MembersView(LoginRequiredMixin, TemplateView):
     """List members."""
     template_name = 'front/members.html'
 
@@ -39,6 +40,6 @@ class ProjectsView(TemplateView):
     template_name = 'front/projects.html'
 
 
-class CouponsView(TemplateView):
+class CouponsView(LoginRequiredMixin, TemplateView):
     """Embed coupons etherpad."""
     template_name = 'front/coupons.html'
