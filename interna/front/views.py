@@ -33,13 +33,3 @@ class MembersView(LoginRequiredMixin, TemplateView):
         context['active_memberships'] = models.Membership.active.order_by('start', 'Member__id')
         context['expired_memberships'] = models.Membership.expired.order_by('start', 'Member__id')
         return context
-
-
-class ProjectsView(TemplateView):
-    """Embed project ideas etherpad."""
-    template_name = 'front/projects.html'
-
-
-class CouponsView(LoginRequiredMixin, TemplateView):
-    """Embed coupons etherpad."""
-    template_name = 'front/coupons.html'
