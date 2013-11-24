@@ -8,12 +8,12 @@ from . import models
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'city', 'twitter', 'github')
     search_fields = ('name', 'pk', 'emai', 'phone', 'city', 'twitter', 'github')
-    list_filter = ('city', 'category')
+    list_filter = ('city',)
 
 
 class MembershipAdmin(admin.ModelAdmin):
-    list_display = ('Member', 'start', 'end')
-    list_filter = ('Member',)
+    list_display = ('Member', 'start', 'end', 'category')
+    list_filter = ('Member', 'category')
 
 
 class MemberPaymentAdmin(admin.ModelAdmin):

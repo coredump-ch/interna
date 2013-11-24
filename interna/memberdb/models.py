@@ -11,14 +11,8 @@ from . import validators
 
 class Member(models.Model):
     """A member of the association."""
-    CATEGORY = Choices(
-        (1, 'verdiener', 'Verdiener'),
-        (2, 'nichtverdiener', 'Nichtverdiener'),
-    )
-
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    category = models.PositiveSmallIntegerField(choices=CATEGORY)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=16, blank=True)
     city = models.CharField(max_length=100, blank=True,
@@ -42,9 +36,15 @@ class Membership(models.Model):
     and then re-join later on.
 
     """
+    CATEGORY = Choices(
+        (1, 'verdiener', 'Verdiener'),
+        (2, 'nichtverdiener', 'Nichtverdiener'),
+    )
+
     Member = models.ForeignKey(Member, related_name='Membership')
     start = models.DateField()
     end = models.DateField(null=True, blank=True)
+    category = models.PositiveSmallIntegerField(choices=CATEGORY, null=True)
 
     # Custom managers
     objects = models.Manager()
