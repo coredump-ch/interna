@@ -44,7 +44,8 @@ class Membership(models.Model):
     Member = models.ForeignKey(Member, related_name='Membership')
     start = models.DateField()
     end = models.DateField(null=True, blank=True)
-    category = models.PositiveSmallIntegerField(choices=CATEGORY, null=True)
+    category = models.PositiveSmallIntegerField(choices=CATEGORY)
+    paid_until = models.CharField(max_length=4, blank=True)
 
     # Custom managers
     objects = models.Manager()
@@ -64,14 +65,3 @@ class Membership(models.Model):
         if self.end:
             parts.append('to {}'.format(self.end))
         return ' '.join(parts)
-
-
-class MemberPayment(models.Model):
-    """A membership payment by a member, linked to a calendar year."""
-    Membership = models.ForeignKey(Membership, related_name='MemberPayment')
-    year = models.CharField(max_length=4, validators=[validators.range_validator(int, 2000, 3000)])
-    payment_date = models.DateField()
-    amount = models.FloatField()
-
-    def __unicode__(self):
-        return '{} / {}'.format(self.year, self.Membership.Member.name)
