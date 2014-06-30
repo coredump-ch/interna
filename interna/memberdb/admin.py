@@ -12,8 +12,8 @@ class MemberAdmin(admin.ModelAdmin):
 
 
 class MembershipAdmin(admin.ModelAdmin):
-    list_display = ('Member', 'start', 'end', 'category', 'paid_until')
-    list_filter = ('Member', 'category', 'paid_until')
+    list_display = ('Member', 'start', 'end', 'category', 'paid_until', 'ccc')
+    list_filter = ('Member', 'category', 'paid_until', 'ccc')
 
 
 admin.site.register(models.Member, MemberAdmin)

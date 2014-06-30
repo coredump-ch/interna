@@ -46,6 +46,7 @@ class Membership(models.Model):
     end = models.DateField(null=True, blank=True)
     category = models.PositiveSmallIntegerField(choices=CATEGORY)
     paid_until = models.CharField(max_length=4, blank=True)
+    ccc = models.BooleanField(default=False, help_text='CCC Mitglied?')
 
     # Custom managers
     objects = models.Manager()
