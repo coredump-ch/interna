@@ -17,6 +17,6 @@ class MembershipActivityManager(models.Manager):
         qs = super(MembershipActivityManager, self).get_query_set()
         today = datetime.today()
         if self.active:
-            return qs.filter(Q(start__lte=today), Q(end__gte=today) | Q(end__isnull=True))
+            return qs.filter(Q(start__lte=today), Q(end__gt=today) | Q(end__isnull=True))
         else:
-            return qs.filter(end__isnull=False, end__lt=today)
+            return qs.filter(end__isnull=False, end__lte=today)
