@@ -196,7 +196,7 @@ if not DEBUG:
     OPBEAT = {
         'ORGANIZATION_ID': '2e1b1154472c4dfa8dca73c2f48cbe59',
         'APP_ID': '7e9d19db40',
-        'SECRET_TOKEN': require_env('SECRET_TOKEN'),
+        'SECRET_TOKEN': require_env('OPBEAT_SECRET_TOKEN'),
     }
     MIDDLEWARE_CLASSES = (
         'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
