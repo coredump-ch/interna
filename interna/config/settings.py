@@ -148,7 +148,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
 
-    'south',
     'messagegroups',
     'django_extensions',
     'bootstrapform',

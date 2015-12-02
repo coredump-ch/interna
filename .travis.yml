@@ -1,4 +1,5 @@
 language: python
+sudo: false
 python:
     - 2.7
 env:
@@ -8,8 +9,7 @@ install:
 before_script:
     - cd interna
     - createdb interna
-    - ./manage.py syncdb --all --noinput
-    - ./manage.py migrate --fake
+    - ./manage.py migrate
     - ./manage.py collectstatic --noinput
 script:
     - ./runtests.py 
