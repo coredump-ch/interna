@@ -5,7 +5,10 @@ from django.http import HttpResponse
 
 admin.autodiscover()
 
-robots = lambda r: HttpResponse('User-agent: *\nDisallow: /', mimetype='text/plain')
+
+def robots(r):
+    return HttpResponse('User-agent: *\nDisallow: /', mimetype='text/plain')
+
 
 urlpatterns = patterns('',
     url(r'^', include('front.urls')),
