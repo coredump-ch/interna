@@ -30,12 +30,12 @@ class MembersView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(MembersView, self).get_context_data(**kwargs)
-        context['active_memberships'] = models.Membership.active.order_by('start', 'Member__id')
-        active_members = [m.Member for m in context['active_memberships']]
-        context['expired_memberships'] = [
-            m for m in models.Membership.expired.order_by('start', 'Member__id')
+        active_members = [m.Member for m in models.Membership.active.all()]
+        context['active_memberships'] = models.Membership.active.order_by('Member__id')
+        context['expired_members'] = set([
+            m.Member for m in models.Membership.expired.order_by('start', 'Member__id')
             if m.Member not in active_members
-        ]
+        ])
         return context
 
 
