@@ -36,7 +36,6 @@ Umgebungsvariablen definieren::
 Datenbankschema generieren::
 
     cd interna
-    ./manage.py syncdb
     ./manage.py migrate
 
 Entwicklungsserver starten::
