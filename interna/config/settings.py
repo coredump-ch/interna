@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
-
 import os
 
 from django.core.exceptions import ImproperlyConfigured

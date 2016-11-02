@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import print_function, division, absolute_import, unicode_literals
-
 from datetime import date
 
 from django.core.urlresolvers import reverse
