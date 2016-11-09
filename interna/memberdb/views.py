@@ -17,9 +17,6 @@ def serialize_category(val):
 
 
 class ActiveMemberView(APIView):
-    authentication_classes = (authentication.BasicAuthentication,)
-    permission_classes = (permissions.IsAdminUser,)
-
     def get(self, request, format=None):
         """
         Return active members as JSON response.
