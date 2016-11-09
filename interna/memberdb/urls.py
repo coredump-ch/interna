@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
+from django.conf.urls import patterns, url
 
+from . import views
 
-from django.conf.urls import patterns
-
-
-urlpatterns = patterns('',)
+urlpatterns = patterns('',
+    url(r'^api/members/active/$', views.ActiveMemberView.as_view(), name='api_members_active'),
+)

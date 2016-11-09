@@ -148,6 +148,7 @@ INSTALLED_APPS = (
     'messagegroups',
     'django_extensions',
     'bootstrapform',
+    'rest_framework',
 
     'memberdb',
     'front',
@@ -182,6 +183,15 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer',),
 }
 
 # Opbeat
