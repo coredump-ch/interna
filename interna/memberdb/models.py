@@ -29,7 +29,7 @@ class Member(models.Model):
     class Meta:
         ordering = ('name', 'id')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -61,7 +61,7 @@ class Membership(models.Model):
         ordering = ('-start', '-Member__pk')
         get_latest_by = ('end', 'start')
 
-    def __unicode__(self):
+    def __str__(self):
         parts = []
         parts.append(self.Member.name)
         if not self.end:
