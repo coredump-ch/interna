@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 from sorl.thumbnail import ImageField
@@ -6,6 +7,7 @@ from sorl.thumbnail import ImageField
 class Project(models.Model):
     title = models.CharField(max_length=80,
             help_text='What do you want to fund?')
+    initiator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     short_description = models.CharField(max_length=300,
             help_text='Describe your project in 300 characters or less')
     long_description = models.TextField(

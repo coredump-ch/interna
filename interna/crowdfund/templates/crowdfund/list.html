@@ -10,18 +10,21 @@
 
 {% block content %}
     <h1>Crowdfund</h1>
-    <p>Crowdfunding platform, work in progress</p>
+
+    <p>Diese Seite bietet eine Übersicht über Projekte, die wir im Coredump
+    durch Mitglieder und Interessierte finanzieren möchten!</p>
 
     <div id="projects">
         {% for project in object_list %}
             <section class="project">
                 <header>
-                    <h2>{{ project.title }}</h2>
+                    <h2><a href="#">{{ project.title }}</a></h2>
+                    <p class="initiator">By {{ project.initiator.username|default:"&lt;Deleted User&gt;" }}</p>
                 </header>
                 {% thumbnail project.image "250x180" crop="center" as im %}
                     <img src="{{ im.url }}" alt="Picture for project '{{ project.title }}'">
                 {% endthumbnail %}
-                <p>{{ project.short_description }}</p>
+                <p class="short_description">{{ project.short_description }}</p>
             </section>
         {% endfor %}
     </div>
