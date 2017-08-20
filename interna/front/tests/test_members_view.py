@@ -23,7 +23,7 @@ def test_members_view(rf):
     mommy.make(models.Membership, Member=m, start=date(2014, 7, 12), end=date(2015, 9, 16))
     mommy.make(models.Membership, Member=m, start=date(2016, 1, 1), end=None)
 
-    request = rf.get(reverse('members'))
+    request = rf.get(reverse('front:members'))
     request.user = u
     request.session = {}
     response = views.MembersView.as_view()(request)

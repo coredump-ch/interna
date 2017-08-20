@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('category', models.PositiveSmallIntegerField(choices=[(1, 'Verdiener'), (2, 'Nichtverdiener')])),
                 ('paid_until', models.CharField(max_length=4, blank=True)),
                 ('ccc', models.BooleanField(default=False, help_text='CCC Mitglied?')),
-                ('Member', models.ForeignKey(related_name='Membership', to='memberdb.Member')),
+                ('Member', models.ForeignKey(related_name='Membership', to='memberdb.Member', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('-start', '-Member__pk'),

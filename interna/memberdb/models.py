@@ -45,7 +45,7 @@ class Membership(models.Model):
         (2, 'nichtverdiener', 'Nichtverdiener'),
     )
 
-    Member = models.ForeignKey(Member, related_name='Membership')
+    Member = models.ForeignKey(Member, related_name='Membership', on_delete=models.CASCADE)
     start = models.DateField()
     end = models.DateField(null=True, blank=True)
     category = models.PositiveSmallIntegerField(choices=CATEGORY)
