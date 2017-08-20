@@ -23,6 +23,8 @@ true_values = ['1', 'true', 'y', 'yes', 1, True]
 # Main configuration
 
 DEBUG = require_env('DJANGO_DEBUG').lower() in true_values
+TEMPLATE_DEBUG = DEBUG  # Keep until https://github.com/jazzband/sorl-thumbnail/issues/476 fixed
+THUMBNAIL_DEBUG = DEBUG
 
 ADMINS = (
     ('Danilo Bargen', 'danilo@coredump.ch'),
@@ -137,6 +139,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'bootstrapform',
     'rest_framework',
+    'sorl.thumbnail',
 
     'memberdb',
     'crowdfund',

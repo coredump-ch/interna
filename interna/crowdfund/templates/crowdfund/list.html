@@ -1,0 +1,28 @@
+{% extends 'front/base.html' %}
+{% load tabs thumbnail %}
+
+{% block bodyclass %}crowdfund_list{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'crowdfund' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1>Crowdfund</h1>
+    <p>Crowdfunding platform, work in progress</p>
+
+    <div id="projects">
+        {% for project in object_list %}
+            <section class="project">
+                <header>
+                    <h2>{{ project.title }}</h2>
+                </header>
+                {% thumbnail project.image "250x180" crop="center" as im %}
+                    <img src="{{ im.url }}" alt="Picture for project '{{ project.title }}'">
+                {% endthumbnail %}
+                <p>{{ project.short_description }}</p>
+            </section>
+        {% endfor %}
+    </div>
+{% endblock %}

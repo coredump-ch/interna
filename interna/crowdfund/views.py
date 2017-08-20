@@ -1,5 +1,8 @@
-from django.views.generic.base import TemplateView
+from django.views.generic.list import ListView
+
+from . import models
 
 
-class IndexView(TemplateView):
-    template_name = 'crowdfund/index.html'
+class IndexView(ListView):
+    model = models.Project
+    template_name = 'crowdfund/list.html'

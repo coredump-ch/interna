@@ -5,11 +5,13 @@ Unipath==1.1
 dj-database-url==0.4.2
 djangorestframework==3.6.3
 django-dotenv==1.4.1
+Pillow==4.2.1
 
 # Useful libs
 django-messagegroups==0.4.5
 django-model-utils==3.0.0
 django-bootstrap-form==3.3
+sorl_thumbnail==12.3
 
 # Dev
 django-extensions==1.8.1
