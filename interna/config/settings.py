@@ -191,6 +191,4 @@ if not DEBUG:
         'APP_ID': '7e9d19db40',
         'SECRET_TOKEN': require_env('OPBEAT_SECRET_TOKEN'),
     }
-    MIDDLEWARE_CLASSES = (
-        'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
-    ) + MIDDLEWARE_CLASSES
+    MIDDLEWARE.insert(0, 'opbeat.contrib.django.middleware.OpbeatAPMMiddleware')
