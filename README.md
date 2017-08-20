@@ -15,33 +15,33 @@ Voraussetzungen:
 - Virtualenvwrapper
 - PostgreSQL
 
-Datenbank::
+Datenbank:
 
     createdb interna
 
-Abhängigkeiten installieren::
+Abhängigkeiten installieren:
 
     mkvirtualenv interna
     pip install -r requirements.txt
 
-Umgebungsvariablen definieren::
-
-    POSTACTIVATE=$VIRTUAL_ENV/$VIRTUALENVWRAPPER_ENV_BIN_DIR/postactivate
-    echo "export DJANGO_DEBUG=True" >> $POSTACTIVATE
-    echo "export PORT=8000" >> $POSTACTIVATE
-    echo "export SITE_DOMAIN='http://localhost:8000'" >> $POSTACTIVATE
-    echo "export DATABASE_URL='postgres://localhost/interna'" >> $POSTACTIVATE
-    source $POSTACTIVATE
-
-Datenbankschema generieren::
+In Source-Directory wechseln:
 
     cd interna
+
+Umgebungsvariablen definieren (`.env` Datei wird automatisch geladen):
+
+    echo "DJANGO_DEBUG=True" >> .env
+    echo "SITE_DOMAIN='http://localhost:8000'" >> .env
+    echo "DATABASE_URL='postgres://localhost/interna'" >> .env
+
+Datenbank migrieren:
+
     ./manage.py migrate
 
-Entwicklungsserver starten::
+Entwicklungsserver starten:
 
     ./manage.py runserver
 
-Tests laufen lassen::
+Tests laufen lassen:
 
     ./runtests.py

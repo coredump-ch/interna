@@ -4,6 +4,7 @@ psycopg2==2.7.3
 Unipath==1.1
 dj-database-url==0.4.2
 djangorestframework==3.6.3
+django-dotenv==1.4.1
 
 # Useful libs
 django-messagegroups==0.4.5
