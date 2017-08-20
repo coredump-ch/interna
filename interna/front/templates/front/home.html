@@ -1,5 +1,5 @@
 {% extends 'front/base.html' %}
-{% load tabs %}
+{% load tabs staticfiles %}
 
 {% block bodyclass %}home{% endblock %}
 
@@ -14,5 +14,5 @@
     <p>Für viele der Unterseiten hier benötigt man ein Login. Ein solches
     kriegst du an einem der Treffen bei einem Vorstandsmitglied.</p>
     <br>
-    <img src="{{ STATIC_URL }}img/intro.gif" alt="Stupid gif animation" />
+    <img src="{% static 'img/intro.gif' %}" alt="Stupid gif animation" />
 {% endblock %}

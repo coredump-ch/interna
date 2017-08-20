@@ -18,7 +18,7 @@ class LogoutView(View):
     def get(self, request, *args, **kwargs):
         logout(request)
         messages.add_message(request, messages.SUCCESS, 'You have successfully logged out.')
-        return redirect('home')
+        return redirect('front:home')
 
 
 class MembersView(LoginRequiredMixin, TemplateView):
