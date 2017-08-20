@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     'rest_framework',
 
     'memberdb',
+    'crowdfund',
     'front',
 )
 

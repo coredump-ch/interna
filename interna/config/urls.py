@@ -5,6 +5,7 @@ from django.http import HttpResponse
 
 from front import urls as front_urls
 from memberdb import urls as memberdb_urls
+from crowdfund import urls as crowdfund_urls
 
 
 def robots(r):
@@ -14,6 +15,7 @@ def robots(r):
 urlpatterns = [
     url(r'^', include(front_urls)),
     url(r'^', include(memberdb_urls)),
+    url(r'^crowdfund/', include(crowdfund_urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^robots\.txt$', robots)
 ]
