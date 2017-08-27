@@ -140,6 +140,7 @@ INSTALLED_APPS = (
     'bootstrapform',
     'rest_framework',
     'sorl.thumbnail',
+    'crispy_forms',
 
     'memberdb',
     'crowdfund',
@@ -184,6 +185,9 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CRISPY_FAIL_SILENTLY = not DEBUG
 
 # Opbeat
 if not DEBUG:

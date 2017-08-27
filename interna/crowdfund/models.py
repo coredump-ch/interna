@@ -32,13 +32,13 @@ class FundingPromise(models.Model):
     """
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     name = models.CharField(max_length=100,
-            help_text='Your name')
+            help_text='Dein Name')
     amount = models.PositiveIntegerField(
-            help_text='How much are you willing to pay?')
+            help_text='Wie viel würdest du für dieses Projekt bezahlen?')
     created = models.DateTimeField(auto_now_add=True, editable=False,
-            help_text='When was this funding offer added?')
+            help_text='Wann wurde dieses Angebot hinzugefügt?')
     expiry_date = models.DateField(blank=True, null=True,
-            help_text='Should this funding offer expire after this date?')
+            help_text='Soll das Angebot irgendwann ablaufen? Lasse dieses Feld leer, wenn das Angebot nie enden soll.')
 
     class Meta:
         ordering = ('-created',)

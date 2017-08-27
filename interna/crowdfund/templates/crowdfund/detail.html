@@ -1,5 +1,5 @@
 {% extends 'front/base.html' %}
-{% load tabs thumbnail %}
+{% load tabs thumbnail crispy_forms_tags %}
 
 {% block bodyclass %}crowdfund_detail{% endblock %}
 
@@ -29,6 +29,8 @@
             <h2>Funding</h2>
 
             <p class="amount-required">Betrag Benötigt: {{ object.amount_required }} CHF</p>
+
+            {% crispy fund_form fund_form.helper %}
         </div>
     </div>
 {% endblock %}

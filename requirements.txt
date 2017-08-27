@@ -12,6 +12,7 @@ django-messagegroups==0.4.5
 django-model-utils==3.0.0
 django-bootstrap-form==3.3
 sorl_thumbnail==12.3
+django-crispy-forms==1.6.1
 
 # Dev
 django-extensions==1.8.1
