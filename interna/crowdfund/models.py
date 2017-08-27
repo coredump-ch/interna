@@ -1,5 +1,8 @@
+from datetime import date
+
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
 
 from sorl.thumbnail import ImageField
 
@@ -18,6 +21,20 @@ class Project(models.Model):
             help_text='How many CHF does this project need to be funded?')
     created = models.DateTimeField(auto_now_add=True, editable=False,
             help_text='When was this funding project launched?')
+
+    def amount_funded(self):
+        total = 0
+        condition = Q(expiry_date__isnull=True) | Q(expiry_date__gte=date.today())
+        for promise in self.fundingpromise_set.filter(condition):
+            total += promise.amount
+        return total
+
+    def percent_funded(self):
+        return int(self.amount_funded() / self.amount_required * 100)
+
+    def promises(self):
+        condition = Q(expiry_date__isnull=True) | Q(expiry_date__gte=date.today())
+        return self.fundingpromise_set.filter(condition).order_by('-amount')
 
     class Meta:
         ordering = ('-created', 'title')
