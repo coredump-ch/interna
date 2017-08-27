@@ -1,0 +1,34 @@
+{% extends 'front/base.html' %}
+{% load tabs thumbnail %}
+
+{% block bodyclass %}crowdfund_detail{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'crowdfund' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1>Crowdfund: {{ object.title }}</h1>
+
+    <p>Funding initiiert{% if object.initiator %} von {{ object.initiator }}{% endif %} am {{ object.created }}.</p>
+
+    <div class="row">
+        <div class="col-md-9">
+            <h2>Details</h2>
+
+            {% thumbnail project.image "500x300" as im %}
+                <img src="{{ im.url }}" alt="Picture for project '{{ project.title }}'">
+            {% endthumbnail %}
+
+            <div class="description">
+                {{ object.long_description|linebreaks }}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h2>Funding</h2>
+
+            <p class="amount-required">Betrag Benötigt: {{ object.amount_required }} CHF</p>
+        </div>
+    </div>
+{% endblock %}

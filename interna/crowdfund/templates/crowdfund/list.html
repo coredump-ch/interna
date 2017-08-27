@@ -14,11 +14,13 @@
     <p>Diese Seite bietet eine Übersicht über Projekte, die wir im Coredump
     durch Mitglieder und Interessierte finanzieren möchten!</p>
 
+    <p>Aktuell sind {{ object_list|length }} Projekte offen.</p>
+
     <div id="projects">
         {% for project in object_list %}
             <section class="project">
                 <header>
-                    <h2><a href="#">{{ project.title }}</a></h2>
+                    <h2><a href="{% url "crowdfund:detail" pk=project.pk %}">{{ project.title }}</a></h2>
                     <p class="initiator">By {{ project.initiator.username|default:"&lt;Deleted User&gt;" }}</p>
                 </header>
                 {% thumbnail project.image "250x180" crop="center" as im %}
