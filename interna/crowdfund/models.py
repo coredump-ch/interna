@@ -24,3 +24,21 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class FundingPromise(models.Model):
+    """
+    A user promises to help funding a project with a ceratain amount.
+    """
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100,
+            help_text='Your name')
+    amount = models.PositiveIntegerField(
+            help_text='How much are you willing to pay?')
+    created = models.DateTimeField(auto_now_add=True, editable=False,
+            help_text='When was this funding offer added?')
+    expiry_date = models.DateField(blank=True, null=True,
+            help_text='Should this funding offer expire after this date?')
+
+    class Meta:
+        ordering = ('-created',)
