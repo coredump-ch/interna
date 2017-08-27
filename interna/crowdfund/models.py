@@ -48,13 +48,13 @@ class FundingPromise(models.Model):
     A user promises to help funding a project with a ceratain amount.
     """
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100,
+    name = models.CharField('Name', max_length=100,
             help_text='Dein Name')
-    amount = models.PositiveIntegerField(
+    amount = models.PositiveIntegerField('Betrag',
             help_text='Wie viel würdest du für dieses Projekt bezahlen?')
     created = models.DateTimeField(auto_now_add=True, editable=False,
             help_text='Wann wurde dieses Angebot hinzugefügt?')
-    expiry_date = models.DateField(blank=True, null=True,
+    expiry_date = models.DateField('Ablaufdatum', blank=True, null=True,
             help_text='Soll das Angebot irgendwann ablaufen? Lasse dieses Feld leer, wenn das Angebot nie enden soll.')
 
     class Meta:
