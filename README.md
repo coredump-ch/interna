@@ -12,16 +12,19 @@ Voraussetzungen:
 
 - Python 3
 - Pip
-- Virtualenvwrapper
 - PostgreSQL
 
 Datenbank:
 
     createdb interna
 
+[Virtualenv](https://docs.python.org/3/library/venv.html) erstellen:
+
+    python3 -m venv VENV
+    source VENV/bin/activate
+
 Abhängigkeiten installieren:
 
-    mkvirtualenv interna
     pip install -r requirements.txt
 
 In Source-Directory wechseln:
@@ -38,10 +41,14 @@ Datenbank migrieren:
 
     ./manage.py migrate
 
-Entwicklungsserver starten:
-
-    ./manage.py runserver
-
 Tests laufen lassen:
 
     ./runtests.py
+
+User erstellen:
+
+    ./manage.py createsuperuser
+
+Entwicklungsserver starten:
+
+    ./manage.py runserver
