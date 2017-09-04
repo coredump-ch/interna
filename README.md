@@ -49,6 +49,10 @@ User erstellen:
 
     ./manage.py createsuperuser
 
+Testdaten laden (optional):
+
+    ./manage.py loaddata --app crowdfund testdata
+
 Entwicklungsserver starten:
 
     ./manage.py runserver
