@@ -14,7 +14,7 @@
     <p>Funding initiiert{% if object.initiator %} von {{ object.initiator }}{% endif %} am {{ object.created }}.</p>
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-9 project-detail">
             <h2>Details</h2>
 
             {% thumbnail project.image "500x300" as im %}
@@ -25,13 +25,36 @@
                 {{ object.long_description|linebreaks }}
             </div>
 
-            <h2>Funders ({{ object.promises.count }})</h2>
-            {% if object.promises %}
-                <p>
-                    {% for promise in object.promises %}
-                    {{ promise.name }} ({{ promise.amount }} CHF{% if promise.expiry_date %}, gültig bis {{ promise.expiry_date }}{% endif %}){% if not forloop.last %},{% else %}.{% endif %}
-                    {% endfor %}
-                </p>
+            <h2>Funders ({{ object.active_promises.count }})</h2>
+            {% if object.all_promises %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Betrag</th>
+                            <th>Versprochen am</th>
+                            <th>Gültig bis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for promise in object.active_promises %}
+                        <tr>
+                            <td>{{ promise.name }}</td>
+                            <td>{{ promise.amount }} CHF</td>
+                            <td>{{ promise.created|date:"Y-m-d" }}</td>
+                            <td>{% if promise.expiry_date %}gültig bis {{ promise.expiry_date|date:"Y-m-d" }}{% else %}-{% endif %}</td>
+                        </tr>
+                        {% endfor %}
+                        {% for promise in object.expired_promises %}
+                        <tr class="expired">
+                            <td>{{ promise.name }}</td>
+                            <td>{{ promise.amount }} CHF</td>
+                            <td>{{ promise.created|date:"Y-m-d" }}</td>
+                            <td>{% if promise.expiry_date %}gültig bis {{ promise.expiry_date|date:"Y-m-d" }}{% else %}-{% endif %}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
                 <p>Vielen Dank!</p>
             {% else %}
                 <p>Bisher noch keine Funder. Sei der/die Erste!</p>
@@ -43,7 +66,7 @@
 
             <p class="amount-required">Status: {{ object.amount_funded }} von {{ object.amount_required }}
             CHF ({{ object.percent_funded }}%) finanziert durch
-            {{ object.promises.count }} Personen!</p>
+            {{ object.active_promises.count }} Personen!</p>
 
             {% crispy fund_form fund_form.helper %}
         </div>

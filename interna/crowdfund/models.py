@@ -32,9 +32,21 @@ class Project(models.Model):
     def percent_funded(self):
         return int(self.amount_funded() / self.amount_required * 100)
 
-    def promises(self):
+    def active_promises(self):
         condition = Q(expiry_date__isnull=True) | Q(expiry_date__gte=date.today())
-        return self.fundingpromise_set.filter(condition).order_by('-amount')
+        return self.fundingpromise_set \
+                .filter(condition) \
+                .order_by('-amount')
+
+    def expired_promises(self):
+        return self.fundingpromise_set \
+                .filter(expiry_date__lt=date.today()) \
+                .order_by('-amount')
+
+    def all_promises(self):
+        return self.fundingpromise_set \
+                .all() \
+                .order_by('-amount')
 
     class Meta:
         ordering = ('-created', 'title')
@@ -59,3 +71,6 @@ class FundingPromise(models.Model):
 
     class Meta:
         ordering = ('-created',)
+
+    def is_expired(self) -> bool:
+        return self.expiry_date and (date.today() > self.expiry_date)

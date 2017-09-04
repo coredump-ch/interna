@@ -52,3 +52,7 @@ body.members table {
 .project p.short_description {
     margin-bottom: 8px;
 }
+
+.project-detail tr.expired {
+    text-decoration: line-through;
+}
