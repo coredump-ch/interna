@@ -39,6 +39,7 @@ Umgebungsvariablen definieren (`.env` Datei wird automatisch geladen):
 
 Datenbank migrieren:
 
+    ./manage.py makemigrations thumbnail  # Workaround: https://stackoverflow.com/a/35883910/284318
     ./manage.py migrate
 
 Tests laufen lassen:
