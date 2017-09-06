@@ -9,6 +9,10 @@
 {% endblock %}
 
 {% block content %}
+    {% if object.initiator == request.user %}
+        <div class="alert alert-info" role="alert">Dein Projekt!</div>
+    {% endif %}
+
     <h1>Crowdfund: {{ object.title }}</h1>
 
     <p>Funding initiiert{% if object.initiator %} von {{ object.initiator }}{% endif %} am {{ object.created }}.</p>
