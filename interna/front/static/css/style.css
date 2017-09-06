@@ -62,6 +62,10 @@ body.members table {
     margin: 8px;
 }
 
+.project-detail .image {
+    margin-bottom: 16px;
+}
+
 .project-detail tr.expired {
     text-decoration: line-through;
 }
