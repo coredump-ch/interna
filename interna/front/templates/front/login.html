@@ -11,6 +11,9 @@
 {% block content %}
     <h1>Login</h1>
 
+    <p>Bitte melde dich hier mit deinem Account an. Wenn du noch keinen Account
+    hast, melde dich bitte an ein Vorstandsmitglied.</p>
+
     <form role="form" action="{% url 'front:login' %}" method="post">
         {% csrf_token %}
         {{ form|bootstrap }}

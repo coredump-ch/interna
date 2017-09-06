@@ -3,22 +3,23 @@ from datetime import date
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
+from django.urls import reverse
 
 from sorl.thumbnail import ImageField
 
 
 class Project(models.Model):
-    title = models.CharField(max_length=80,
-            help_text='What do you want to fund?')
+    title = models.CharField('Titel', max_length=80,
+            help_text='Titel deines Projektes')
     initiator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
-    short_description = models.CharField(max_length=300,
-            help_text='Describe your project in 300 characters or less')
-    long_description = models.TextField(
-            help_text='Describe your project in more detail')
-    image = ImageField(upload_to='crowdfund_projects/',
-            help_text='A photo showing your project')
-    amount_required = models.PositiveIntegerField(
-            help_text='How many CHF does this project need to be funded?')
+    short_description = models.CharField('Kurzbeschreibung', max_length=300,
+            help_text='Beschreibe dein Projekt mit weniger als 300 Buchstaben')
+    long_description = models.TextField('Detailbeschreibung',
+            help_text='Beschreibe dein Projekt im Detail')
+    image = ImageField('Bild', upload_to='crowdfund_projects/',
+            help_text='Ein Bild, welches das Projekt repräsentiert')
+    amount_required = models.PositiveIntegerField('Betrag',
+            help_text='Wie viele CHF werden benötigt, um das Projekt zu finanzieren?')
     created = models.DateTimeField(auto_now_add=True, editable=False,
             help_text='When was this funding project launched?')
 
@@ -47,6 +48,9 @@ class Project(models.Model):
         return self.fundingpromise_set \
                 .all() \
                 .order_by('-amount')
+
+    def get_absolute_url(self):
+        return reverse('crowdfund:detail', kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ('-created', 'title')

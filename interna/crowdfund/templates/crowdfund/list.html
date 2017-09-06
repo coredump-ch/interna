@@ -11,6 +11,10 @@
 {% block content %}
     <h1>Crowdfund</h1>
 
+    <div class="pull-right" id="add-project">
+        <a href="{% url 'crowdfund:create' %}" class="btn btn-primary" role="button">Projekt Hinzufügen</a>
+    </div>
+
     <p>Diese Seite bietet eine Übersicht über Projekte, die wir im Coredump
     durch Mitglieder und Interessierte finanzieren möchten!</p>
 
@@ -24,7 +28,7 @@
                     <p class="initiator">By {{ project.initiator.username|default:"&lt;Deleted User&gt;" }}</p>
                 </header>
                 {% thumbnail project.image "250x180" crop="center" as im %}
-                    <img src="{{ im.url }}" alt="Picture for project '{{ project.title }}'">
+                    <a href="{% url "crowdfund:detail" pk=project.pk %}"><img src="{{ im.url }}" alt="Picture for project '{{ project.title }}'"></a>
                 {% endthumbnail %}
                 <p class="short_description">{{ project.short_description }}</p>
             </section>

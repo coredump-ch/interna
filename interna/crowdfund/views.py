@@ -1,8 +1,13 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
+
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 from . import models, forms
 
@@ -10,6 +15,30 @@ from . import models, forms
 class IndexView(ListView):
     model = models.Project
     template_name = 'crowdfund/list.html'
+
+
+class CreateView(LoginRequiredMixin, CreateView):
+    model = models.Project
+    fields = ['title', 'short_description', 'long_description', 'image', 'amount_required']
+    template_name = 'crowdfund/create.html'
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.helper = FormHelper()
+        form.helper.add_input(Submit('submit', 'Speichern', css_class='btn-primary'))
+        return form
+
+    def form_valid(self, form):
+        # Save data
+        self.object = form.save(commit=False)
+        self.object.initiator = self.request.user
+        self.object.save()
+
+        # Add message
+        msg = 'Dein Projekt wurde erstellt! Trage dich doch gleich als erste/n Funder ein :)'
+        messages.add_message(self.request, messages.INFO, msg)
+
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class DetailView(DetailView):
