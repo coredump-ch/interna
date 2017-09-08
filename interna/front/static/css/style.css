@@ -69,3 +69,19 @@ body.members table {
 .project-detail tr.expired {
     text-decoration: line-through;
 }
+
+.funding-progress {
+    display: flex;
+    flex-direction: column;
+}
+
+.funding-progress .summary {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.funding-progress .progress {
+    margin-left: 8px;
+    margin-right: 8px;
+}
