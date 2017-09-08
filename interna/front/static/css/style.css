@@ -73,6 +73,7 @@ body.members table {
 .funding-progress {
     display: flex;
     flex-direction: column;
+    margin-top: 16px;
 }
 
 .funding-progress .summary {
@@ -81,7 +82,18 @@ body.members table {
     justify-content: space-between;
 }
 
+.funding-progress .summary p {
+    margin-bottom: 4px;
+}
+
 .funding-progress .progress {
-    margin-left: 8px;
-    margin-right: 8px;
+    margin: 0 7px 8px;
+}
+
+body.crowdfund_detail .funding-progress {
+    margin-bottom: 32px;
+}
+
+body.crowdfund_detail .funding-progress .progress {
+    margin: 0;
 }

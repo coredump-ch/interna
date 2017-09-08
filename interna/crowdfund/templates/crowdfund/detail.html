@@ -18,11 +18,11 @@
     <p>Funding initiiert{% if object.initiator %} von {{ object.initiator }}{% endif %} am {{ object.created }}.</p>
 
     <div class="row">
-        <div class="col-md-9 project-detail">
+        <div class="col-md-9 object-detail">
             <h2>Details</h2>
 
-            {% thumbnail project.image "500x300" as im %}
-                <img class="image" src="{{ im.url }}" alt="Picture for project '{{ project.title }}'">
+            {% thumbnail object.image "500x300" as im %}
+                <img class="image" src="{{ im.url }}" alt="Picture for object '{{ object.title }}'">
             {% endthumbnail %}
 
             <div class="description">
@@ -68,9 +68,11 @@
         <div class="col-md-3">
             <h2>Funding</h2>
 
-            <p class="amount-required">Status: {{ object.amount_funded }} von {{ object.amount_required }}
-            CHF ({{ object.percent_funded }}%) finanziert durch
-            {{ object.active_promises.count }} Personen!</p>
+            <p class="amount-required">Von {{ object.active_promises.count }} Person{{ object.active_promises.count|pluralize:",en" }} zu {{ object.percent_funded }}% finanziert!</p>
+
+            {% include 'crowdfund/progress.html' with percent=object.percent_funded collected=object.amount_funded required=object.amount_required funders=object.active_promises.count %}
+
+            <h3>Mitmachen?</h3>
 
             {% crispy fund_form fund_form.helper %}
         </div>
