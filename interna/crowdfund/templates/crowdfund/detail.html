@@ -10,7 +10,7 @@
 
 {% block content %}
     {% if object.initiator == request.user %}
-        <div class="alert alert-info" role="alert">Dein Projekt!</div>
+        <div class="alert alert-success" role="alert">Dein Projekt! <a href="{% url 'crowdfund:edit' object.pk %}">Bearbeiten?</a></div>
     {% endif %}
 
     <h1>Crowdfund: {{ object.title }}</h1>

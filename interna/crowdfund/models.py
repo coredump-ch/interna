@@ -71,7 +71,8 @@ class FundingPromise(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False,
             help_text='Wann wurde dieses Angebot hinzugefügt?')
     expiry_date = models.DateField('Ablaufdatum', blank=True, null=True,
-            help_text='Soll das Angebot irgendwann ablaufen? Lasse dieses Feld leer, wenn das Angebot nie enden soll.')
+            help_text='Soll das Angebot irgendwann ablaufen? Lasse dieses Feld leer, '
+                      'wenn das Angebot nie enden soll.')
 
     class Meta:
         ordering = ('-created',)
