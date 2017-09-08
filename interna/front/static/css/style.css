@@ -97,3 +97,7 @@ body.crowdfund_detail .funding-progress {
 body.crowdfund_detail .funding-progress .progress {
     margin: 0;
 }
+
+body.crowdfund_list footer {
+    margin-top: 24px;
+}
