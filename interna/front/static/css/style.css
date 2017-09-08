@@ -62,11 +62,11 @@ body.members table {
     margin: 8px;
 }
 
-.project-detail .image {
+body.crowdfund_detail .image {
     margin-bottom: 16px;
 }
 
-.project-detail tr.expired {
+body.crowdfund_detail tr.expired {
     text-decoration: line-through;
 }
 
