@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 import pytest
 from model_mommy import mommy
@@ -18,10 +19,12 @@ from crowdfund import models
 
     ('GET', 'crowdfund:edit', 1, None, 302),  # Redirect to login
     ('GET', 'crowdfund:edit', 1, 1, 200),
+    ('GET', 'crowdfund:edit', 2, 1, 403),
     ('GET', 'crowdfund:edit', 1, 2, 403),
     ('GET', 'crowdfund:edit', 999, 1, 404),
     ('POST', 'crowdfund:edit', 1, None, 302),  # Redirect to login
     ('POST', 'crowdfund:edit', 1, 1, 200),
+    ('POST', 'crowdfund:edit', 2, 1, 403),
     ('POST', 'crowdfund:edit', 1, 2, 403),
     ('POST', 'crowdfund:edit', 999, 1, 404),
 ])
@@ -32,7 +35,12 @@ def test_status_codes(client, method, url, pk, user, status_code):
     # Create models
     u1 = get_user_model().objects.create_user(pk=1, username='user', password='1234')
     get_user_model().objects.create_user(pk=2, username='user2', password='1235')
-    mommy.make(models.Project, pk=1, image=None, initiator=u1)
+
+    # PK 1: Ongoing project by user 1
+    mommy.make(models.Project, pk=1, image=None, initiator=u1, funded=None)
+
+    # PK 2: Funded project by user 1
+    mommy.make(models.Project, pk=2, image=None, initiator=u1, funded=timezone.now())
 
     # Login
     if user == 1:

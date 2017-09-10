@@ -76,14 +76,18 @@ class Edit(LoginRequiredMixin, UpdateView):
         # Ensure permission
         self.object = self.get_object()
         if self.object.initiator != request.user:
-            return HttpResponse('Forbidden', status=403)
+            return HttpResponse('Forbidden: Not your project', status=403)
+        if self.object.funded is not None:
+            return HttpResponse('Forbidden: Funded project', status=403)
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         # Ensure permission
         self.object = self.get_object()
         if self.object.initiator != request.user:
-            return HttpResponse('Forbidden', status=403)
+            return HttpResponse('Forbidden: Not your project', status=403)
+        if self.object.funded is not None:
+            return HttpResponse('Forbidden: Funded project', status=403)
         return super().post(request, *args, **kwargs)
 
     def get_form(self, form_class=None):
