@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from django.core import mail
+
 from freezegun import freeze_time
 from model_mommy import mommy
 import pytest
@@ -94,3 +96,15 @@ def test_funded_freeze():
         assert p1.funded == datetime(2017, 1, 5, tzinfo=pytz.utc)
         assert len(p1.active_promises()) == 3
         assert len(p1.expired_promises()) == 1
+
+
+@pytest.mark.django_db
+def test_funding_emails():
+    p = mommy.make(Project, image=None, amount_required=120,
+            initiator__email='foo@bar.baz', title='Yolo')
+    assert len(mail.outbox) == 0
+    mommy.make(FundingPromise, project=p, amount=80, expiry_date=None)
+    assert len(mail.outbox) == 0
+    mommy.make(FundingPromise, project=p, amount=40, expiry_date=None)
+    assert len(mail.outbox) == 1
+    assert mail.outbox[0].subject == 'Dein Projekt "Yolo" wurde finanziert!'

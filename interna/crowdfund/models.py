@@ -2,10 +2,12 @@ from datetime import date
 import logging
 
 from django.conf import settings
+from django.core.mail import send_mail
 from django.db import models
 from django.db.models import Q, Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils import timezone
 
@@ -117,6 +119,23 @@ def on_funding_promise_save(sender, **kwargs):
     if created is True \
             and project.funded is None \
             and project.amount_funded() >= project.amount_required:
+
+        logger.info('Project %d (%s) is funded!' % (project.pk, project.title))
+
+        # Update model
         project.funded = timezone.now()
         project.save(update_fields=['funded'])
-        logger.info('Project %d (%s) is funded!' % (project.pk, project.title))
+
+        # Send e-mail to project initiator
+        if project.initiator is not None:
+            subject = 'Dein Projekt "%s" wurde finanziert!' % project.title
+            text_content = render_to_string('emails/funding_success.txt', {'project': project})
+            sender = settings.SERVER_EMAIL
+            recipients = [project.initiator.email]
+            send_mail(
+                subject,
+                text_content,
+                sender,
+                recipients,
+                fail_silently=False
+            )

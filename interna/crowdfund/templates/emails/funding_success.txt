@@ -1,0 +1,16 @@
+Hallo {{ project.initiator.username }}
+
+Gratuliere, dein Projekt "{{ project.title }}" wurde erfolgreich durch {{ project.active_promises|length }} Personen finanziert!
+
+Liste der aktiven Angebote:
+
+{% for promise in project.active_promises %}
+- {{ promise.name }} ({{ promise.amount }} CHF)
+{% endfor %}
+
+Bitte kontaktiere nun diese Personen, um die Bezahlung zu organisieren und dein Projekt umzusetzen.
+
+Bei Fragen, wende dich an den Vorstand (z.B. per E-Mail an vorstand@lists.coredump.ch)!
+
+Grüsse,
+dein Coredump Crowdfunding-System

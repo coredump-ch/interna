@@ -189,6 +189,18 @@ REST_FRAMEWORK = {
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 CRISPY_FAIL_SILENTLY = not DEBUG
 
+# Email
+SERVER_EMAIL = 'interna@coredump.ch'
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = require_env('SMTP_HOST')
+    EMAIL_HOST_USER = require_env('SMTP_USER')
+    EMAIL_HOST_PASSWORD = require_env('SMTP_PASS')
+    EMAIL_PORT = require_env('SMTP_PORT')
+    EMAIL_USE_TLS = True
+
 # Opbeat
 if not DEBUG:
     INSTALLED_APPS += (
