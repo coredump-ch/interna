@@ -8,6 +8,14 @@
     {{ block.super }}
 {% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'crowdfund:index' %}">Projekte</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'crowdfund:detail' pk=object.pk %}">{{ object.title }}</a></li>
+    <li class="breadcrumb-item active">Bearbeiten</li>
+</ol>
+{% endblock %}
+
 {% block content %}
     <h1>Crowdfund: {{ object.title }}</h1>
 

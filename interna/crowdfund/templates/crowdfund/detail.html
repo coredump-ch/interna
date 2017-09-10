@@ -8,6 +8,13 @@
     {{ block.super }}
 {% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'crowdfund:index' %}">Projekte</a></li>
+    <li class="breadcrumb-item active">{{ object.title }}</li>
+</ol>
+{% endblock %}
+
 {% block content %}
     {% if object.initiator == request.user %}
         <div class="alert alert-success" role="alert">
