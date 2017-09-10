@@ -1,11 +1,18 @@
 from datetime import date
+import logging
 
 from django.conf import settings
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, Sum
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.urls import reverse
+from django.utils import timezone
 
 from sorl.thumbnail import ImageField
+
+
+logger = logging.getLogger('crowdfund.models')
 
 
 class Project(models.Model):
@@ -22,32 +29,48 @@ class Project(models.Model):
             help_text='Wie viele CHF werden benötigt, um das Projekt zu finanzieren?')
     created = models.DateTimeField(auto_now_add=True, editable=False,
             help_text='When was this funding project launched?')
+    funded = models.DateTimeField(null=True, blank=True,
+            help_text='When was this project funded?')
 
     def amount_funded(self):
-        total = 0
-        condition = Q(expiry_date__isnull=True) | Q(expiry_date__gte=date.today())
-        for promise in self.fundingpromise_set.filter(condition):
-            total += promise.amount
-        return total
+        """
+        Calculate the amount funded.
+
+        This will exclude expired promises, except for promises that expired
+        after the project was funded.
+        """
+        return self.active_promises().aggregate(total=Sum('amount'))['total'] or 0
 
     def percent_funded(self):
         return int(self.amount_funded() / self.amount_required * 100)
 
-    def active_promises(self):
+    def _get_expiry_condition(self):
+        """
+        Build filter expression for expired promises.
+
+        Note: We could use the `Now` db function that gets the current date using native SQL,
+        but then the function is not easily testable with mocking anymore.
+
+        """
         condition = Q(expiry_date__isnull=True) | Q(expiry_date__gte=date.today())
+        if self.funded is not None:
+            condition |= Q(expiry_date__gte=self.funded)
+        return condition
+
+    def active_promises(self):
         return self.fundingpromise_set \
-                .filter(condition) \
-                .order_by('-amount')
+                .filter(self._get_expiry_condition()) \
+                .order_by('-amount', 'created')
 
     def expired_promises(self):
         return self.fundingpromise_set \
-                .filter(expiry_date__lt=date.today()) \
-                .order_by('-amount')
+                .exclude(self._get_expiry_condition()) \
+                .order_by('-amount', 'created')
 
     def all_promises(self):
         return self.fundingpromise_set \
                 .all() \
-                .order_by('-amount')
+                .order_by('-amount', 'created')
 
     def get_absolute_url(self):
         return reverse('crowdfund:detail', kwargs={'pk': self.pk})
@@ -77,5 +100,20 @@ class FundingPromise(models.Model):
     class Meta:
         ordering = ('-created',)
 
+    def __str__(self):
+        return '%d CHF by %s for %s' % (self.amount, self.name, self.project.title)
+
     def is_expired(self) -> bool:
         return self.expiry_date and (date.today() > self.expiry_date)
+
+
+@receiver(post_save, sender=FundingPromise)
+def on_funding_promise_save(sender, **kwargs):
+    project = kwargs['instance'].project
+    created = kwargs['created']
+    if created is True \
+            and project.funded is None \
+            and project.amount_funded() >= project.amount_required:
+        project.funded = timezone.now()
+        project.save(update_fields=['funded'])
+        logger.info('Project %d (%s) is funded!' % (project.pk, project.title))

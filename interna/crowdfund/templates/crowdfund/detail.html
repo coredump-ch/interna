@@ -15,7 +15,7 @@
 
     <h1>Crowdfund: {{ object.title }}</h1>
 
-    <p>Funding initiiert{% if object.initiator %} von {{ object.initiator }}{% endif %} am {{ object.created }}.</p>
+    <p>Funding initiiert{% if object.initiator %} von {{ object.initiator }}{% endif %} am {{ object.created|date:"d. F Y" }} um {{ object.created|date:"H:i" }} Uhr.</p>
 
     <div class="row">
         <div class="col-md-9 object-detail">
@@ -69,6 +69,7 @@
             <h2>Funding</h2>
 
             <p class="amount-required">Von {{ object.active_promises.count }} Person{{ object.active_promises.count|pluralize:",en" }} zu {{ object.percent_funded }}% finanziert!</p>
+            {% if object.funded %}<p>Finanzierungsziel erreicht am {{ object.funded|date:"d. F Y" }} um {{ object.funded|date:"H:i" }} Uhr!</p>{% endif %}
 
             {% include 'crowdfund/progress.html' with percent=object.percent_funded collected=object.amount_funded required=object.amount_required funders=object.active_promises.count %}
 
