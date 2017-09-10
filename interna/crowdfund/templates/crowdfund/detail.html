@@ -36,6 +36,10 @@
                 {{ object.long_description|linebreaks|urlize }}
             </div>
 
+            <h2>Diskussion</h2>
+
+            <p>Dieses Projekt kann <a href="{{ object.forum_thread }}">im Forum</a> diskutiert werden!</p>
+
             <h2>Funders ({{ object.active_promises.count }})</h2>
             {% if object.all_promises %}
                 <table class="table table-striped">

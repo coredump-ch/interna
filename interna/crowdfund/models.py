@@ -27,6 +27,9 @@ class Project(models.Model):
             help_text='Ein Bild, welches das Projekt repräsentiert')
     amount_required = models.PositiveIntegerField('Betrag',
             help_text='Wie viele CHF werden benötigt, um das Projekt zu finanzieren?')
+    forum_thread = models.URLField('Forums-Thread',
+            help_text='Bitte erstelle auf forum.coredump.ch in der Kategorie "Hackerspace" '
+                      'einen Diskussionsthread zu diesem Crowdfunding.')
     created = models.DateTimeField(auto_now_add=True, editable=False,
             help_text='When was this funding project launched?')
     funded = models.DateTimeField(null=True, blank=True,

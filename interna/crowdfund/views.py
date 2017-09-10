@@ -45,7 +45,8 @@ class Detail(DetailView):
 
 class Create(LoginRequiredMixin, CreateView):
     model = models.Project
-    fields = ['title', 'short_description', 'long_description', 'image', 'amount_required']
+    fields = ['title', 'short_description', 'long_description', 'image',
+              'amount_required', 'forum_thread']
     template_name = 'crowdfund/create.html'
 
     def get_form(self, form_class=None):
@@ -69,7 +70,8 @@ class Create(LoginRequiredMixin, CreateView):
 
 class Edit(LoginRequiredMixin, UpdateView):
     model = models.Project
-    fields = ['title', 'short_description', 'long_description', 'image', 'amount_required']
+    fields = ['title', 'short_description', 'long_description', 'image',
+              'amount_required', 'forum_thread']
     template_name = 'crowdfund/edit.html'
 
     def get(self, request, *args, **kwargs):
