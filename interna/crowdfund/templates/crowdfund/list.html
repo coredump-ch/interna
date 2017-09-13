@@ -1,0 +1,51 @@
+{% extends 'front/base.html' %}
+{% load tabs thumbnail %}
+
+{% block bodyclass %}crowdfund_list{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'crowdfund' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item active">Projekte</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+    <h1>Crowdfund</h1>
+
+    <div class="pull-right" id="add-project">
+        <a href="{% url 'crowdfund:create' %}" class="btn btn-primary" role="button">Projekt Hinzufügen</a>
+    </div>
+
+    <p>Diese Seite bietet eine Übersicht über Projekte, die wir im Coredump
+    durch Mitglieder und Interessierte finanzieren möchten!</p>
+
+    <p>Aktuell sind {{ object_list|length }} Projekte offen.</p>
+
+    <div id="projects">
+        {% for project in object_list %}
+            <section class="project">
+                <header>
+                    <h2><a href="{% url "crowdfund:detail" pk=project.pk %}">{{ project.title }}</a></h2>
+                    <p class="initiator">By {{ project.initiator.username|default:"&lt;Deleted User&gt;" }}</p>
+                </header>
+                {% thumbnail project.image "250x180" crop="center" as im %}
+                    <a href="{% url "crowdfund:detail" pk=project.pk %}"><img src="{{ im.url }}" alt="Picture for project '{{ project.title }}'"></a>
+                {% endthumbnail %}
+                <p class="short_description">{{ project.short_description }}</p>
+                {% include 'crowdfund/progress.html' with percent=project.percent_funded collected=project.amount_funded required=project.amount_required funders=project.active_promises.count %}
+            </section>
+        {% endfor %}
+    </div>
+
+    <footer>
+        Falls du Verbesserungsvorschläge oder Bugfixes für dieses
+        Crowdfunding-Tool hast, kannst du diese gerne
+        <a href="https://github.com/coredump-ch/interna">auf Github</a>
+        reporten!
+    </footer>
+{% endblock %}

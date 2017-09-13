@@ -39,6 +39,7 @@ Umgebungsvariablen definieren (`.env` Datei wird automatisch geladen):
 
 Datenbank migrieren:
 
+    ./manage.py makemigrations thumbnail  # Workaround: https://stackoverflow.com/a/35883910/284318
     ./manage.py migrate
 
 Tests laufen lassen:
@@ -48,6 +49,10 @@ Tests laufen lassen:
 User erstellen:
 
     ./manage.py createsuperuser
+
+Testdaten laden (optional):
+
+    ./manage.py loaddata --app crowdfund testdata
 
 Entwicklungsserver starten:
 

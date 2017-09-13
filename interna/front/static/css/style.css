@@ -6,3 +6,98 @@ iframe.fullwidth {
 body.members table {
     font-size: 0.85em;
 }
+
+#projects {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: flex-start;
+    margin-top: 32px;
+}
+
+.project {
+    border: 1px solid #E7E7E7;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    width: 252px;
+    box-shadow: 0 2px 6px -2px rgba(22,22,22,0.45);
+    display: flex;
+    flex-direction: column;
+}
+
+.project h2 {
+    margin: 8px;
+    padding: 0;
+    font-size: 1.7em;
+}
+
+.project h2 a:hover {
+    text-decoration: none;
+}
+
+.project img {
+    margin: 8px 0;
+    border-top: 1px solid #E7E7E7;
+    border-bottom: 1px solid #E7E7E7;
+}
+
+.project p {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.project p.initiator {
+    margin-bottom: 0;
+}
+
+.project p.short_description {
+    margin-bottom: 8px;
+    flex-grow: 1;
+}
+
+.project .labels .label {
+    display: inline-block;
+    margin: 8px;
+}
+
+body.crowdfund_detail .image {
+    margin-bottom: 16px;
+}
+
+body.crowdfund_detail tr.expired {
+    text-decoration: line-through;
+}
+
+.funding-progress {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+}
+
+.funding-progress .summary {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.funding-progress .summary p {
+    margin-bottom: 4px;
+}
+
+.funding-progress .progress {
+    margin: 0 7px 8px;
+}
+
+body.crowdfund_detail .funding-progress {
+    margin-bottom: 32px;
+}
+
+body.crowdfund_detail .funding-progress .progress {
+    margin: 0;
+}
+
+body.crowdfund_list footer {
+    margin-top: 24px;
+}

@@ -1,0 +1,50 @@
+[
+{
+  "model": "crowdfund.project",
+  "pk": 1,
+  "fields": {
+    "title": "Werkzeugwand",
+    "initiator": null,
+    "short_description": "Wir brauchen eine Werkzeugwand, um unser Werkzeug sauber aufzur\u00e4umen!",
+    "long_description": "Momentan muss man das Werkzeug (Seitenschneider, Schraubenzieher, Zangen usw) h\u00e4ufig suchen. Entweder liegen sie in der Schublade, im Gestell \u00fcber der L\u00f6tstation oder irgendwo auf einem Tisch.\r\n\r\nF\u00fcr relativ wenig Geld k\u00f6nnten wir eine modulare Werkzeugwand kaufen, um das ganze Werkezug sauber aufzuh\u00e4ngen!",
+    "image": "crowdfund_projects/werkzeugwand.jpg",
+    "amount_required": 80,
+    "created": "2017-08-20T21:44:44.100Z"
+  }
+},
+{
+  "model": "crowdfund.project",
+  "pk": 2,
+  "fields": {
+    "title": "Staubsauger",
+    "initiator": 1,
+    "short_description": "Wir besitzen bisher keinen Staubsauger. Tragische Geschichte.",
+    "long_description": "Im ersten Vereinsjahr wurde der Bodem im Coredump gesamthaft 1 mal gereinigt. Grund daf\u00fcr ist, dass wir bisher keinen eigenen Staubsauger haben! Und mit dem Besen kann man den Teppich nicht reinigen.\r\n\r\nIch denke f\u00fcr unter 100 Franken sollte es m\u00f6glich sein, einen brauchbaren gebrauchten Staubsauger zu kaufen.",
+    "image": "crowdfund_projects/staubs\u00e4uger.jpg",
+    "amount_required": 100,
+    "created": "2017-08-20T21:46:42.512Z"
+  }
+},
+{
+  "model": "crowdfund.fundingpromise",
+  "pk": 1,
+  "fields": {
+    "project": 2,
+    "name": "Danilo",
+    "amount": 23,
+    "created": "2017-08-27T22:50:06.742Z",
+    "expiry_date": null
+  }
+},
+{
+  "model": "crowdfund.fundingpromise",
+  "pk": 2,
+  "fields": {
+    "project": 2,
+    "name": "Fritzli",
+    "amount": 42,
+    "created": "2017-08-27T22:51:36.181Z",
+    "expiry_date": "2018-01-01"
+  }
+}
+]

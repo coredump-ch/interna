@@ -1,0 +1,17 @@
+<div class="funding-progress">
+    <div class="summary">
+        <p>{{ collected }} / {{ required }} CHF</p>
+        <p>{{ funders }} Funder</p>
+    </div>
+    <div class="progress">
+        <div class="progress-bar
+                    {% if percent >= 100 %}progress-bar-success
+                    {% elif percent >= 50 %}progress-bar-info
+                    {% elif percent >= 20 %}progress-bar-warning
+                    {% else %}progress-bar-danger{% endif %}
+                    progress-bar-striped"
+             role="progressbar"
+             aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100"
+             style="width: {{ percent }}%; min-width: 2em;">{{ percent }}%</div>
+    </div>
+</div>

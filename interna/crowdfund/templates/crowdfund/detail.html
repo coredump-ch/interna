@@ -1,0 +1,99 @@
+{% extends 'front/base.html' %}
+{% load tabs thumbnail crispy_forms_tags %}
+
+{% block bodyclass %}crowdfund_detail{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'crowdfund' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'crowdfund:index' %}">Projekte</a></li>
+    <li class="breadcrumb-item active">{{ object.title }}</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+    {% if object.initiator == request.user %}
+        <div class="alert alert-success" role="alert">
+            Dein Projekt!
+            {% if object.funded %}
+            Gratulation zum erfolgreichen Funding!
+            {% else %}
+            <a href="{% url 'crowdfund:edit' object.pk %}">Bearbeiten?</a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <h1>Crowdfund: {{ object.title }}</h1>
+
+    <p>Funding initiiert{% if object.initiator %} von {{ object.initiator }}{% endif %} am {{ object.created|date:"d. F Y" }} um {{ object.created|date:"H:i" }} Uhr.</p>
+
+    <div class="row">
+        <div class="col-md-9 object-detail">
+            <h2>Details</h2>
+
+            {% thumbnail object.image "500x300" as im %}
+                <img class="image" src="{{ im.url }}" alt="Picture for object '{{ object.title }}'">
+            {% endthumbnail %}
+
+            <div class="description">
+                {{ object.long_description|linebreaks|urlize }}
+            </div>
+
+            <h2>Diskussion</h2>
+
+            <p>Dieses Projekt kann <a href="{{ object.forum_thread }}">im Forum</a> diskutiert werden!</p>
+
+            <h2>Funders ({{ object.active_promises.count }})</h2>
+            {% if object.all_promises %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Betrag</th>
+                            <th>Versprochen am</th>
+                            <th>Gültig bis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for promise in object.active_promises %}
+                        <tr>
+                            <td>{{ promise.name }}</td>
+                            <td>{{ promise.amount }} CHF</td>
+                            <td>{{ promise.created|date:"Y-m-d" }}</td>
+                            <td>{% if promise.expiry_date %}gültig bis {{ promise.expiry_date|date:"Y-m-d" }}{% else %}-{% endif %}</td>
+                        </tr>
+                        {% endfor %}
+                        {% for promise in object.expired_promises %}
+                        <tr class="expired">
+                            <td>{{ promise.name }}</td>
+                            <td>{{ promise.amount }} CHF</td>
+                            <td>{{ promise.created|date:"Y-m-d" }}</td>
+                            <td>{% if promise.expiry_date %}gültig bis {{ promise.expiry_date|date:"Y-m-d" }}{% else %}-{% endif %}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p>Vielen Dank!</p>
+            {% else %}
+                <p>Bisher noch keine Funder. Sei der/die Erste!</p>
+            {% endif %}
+
+        </div>
+        <div class="col-md-3">
+            <h2>Funding</h2>
+
+            <p class="amount-required">Von {{ object.active_promises.count }} Person{{ object.active_promises.count|pluralize:",en" }} zu {{ object.percent_funded }}% finanziert!</p>
+            {% if object.funded %}<p>Finanzierungsziel erreicht am {{ object.funded|date:"d. F Y" }} um {{ object.funded|date:"H:i" }} Uhr!</p>{% endif %}
+
+            {% include 'crowdfund/progress.html' with percent=object.percent_funded collected=object.amount_funded required=object.amount_required funders=object.active_promises.count %}
+
+            <h3>Mitmachen?</h3>
+
+            {% crispy fund_form fund_form.helper %}
+        </div>
+    </div>
+{% endblock %}
