@@ -114,28 +114,44 @@ class FundingPromise(models.Model):
 
 @receiver(post_save, sender=FundingPromise)
 def on_funding_promise_save(sender, **kwargs):
-    project = kwargs['instance'].project
+    promise = kwargs['instance']
+    project = promise.project
     created = kwargs['created']
-    if created is True \
-            and project.funded is None \
-            and project.amount_funded() >= project.amount_required:
+    if created is True:
+        # Notify initiator about new funding promise
+        logger.info('New funding for project %d (%s): %d CHF' %
+                (project.pk, project.title, promise.amount))
+        subject = '%d CHF für dein Projekt "%s"!' % (promise.amount, project.title)
+        _notify_initiator(promise, subject, 'emails/funding_new.txt')
 
-        logger.info('Project %d (%s) is funded!' % (project.pk, project.title))
+        # If project is fully funded, notify initiator too!
+        if project.funded is None and project.amount_funded() >= project.amount_required:
+            logger.info('Project %d (%s) is funded!' % (project.pk, project.title))
 
-        # Update model
-        project.funded = timezone.now()
-        project.save(update_fields=['funded'])
+            # Update model
+            project.funded = timezone.now()
+            project.save(update_fields=['funded'])
 
-        # Send e-mail to project initiator
-        if project.initiator is not None:
+            # Send e-mail to project initiator
             subject = 'Dein Projekt "%s" wurde finanziert!' % project.title
-            text_content = render_to_string('emails/funding_success.txt', {'project': project})
-            sender = settings.SERVER_EMAIL
-            recipients = [project.initiator.email]
-            send_mail(
-                subject,
-                text_content,
-                sender,
-                recipients,
-                fail_silently=False
-            )
+            _notify_initiator(promise, subject, 'emails/funding_success.txt')
+
+
+def _notify_initiator(promise: FundingPromise, subject: str, template: str):
+    """
+    Notify the initiator of a project about something.
+
+    If there is no initiator, nothing happens.
+
+    """
+    if promise.project.initiator is not None:
+        text_content = render_to_string(template, {'promise': promise})
+        sender = settings.SERVER_EMAIL
+        recipients = [promise.project.initiator.email]
+        send_mail(
+            subject,
+            text_content,
+            sender,
+            recipients,
+            fail_silently=False
+        )

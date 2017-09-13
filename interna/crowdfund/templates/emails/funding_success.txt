@@ -1,12 +1,14 @@
-Hallo {{ project.initiator.username }}
+Hallo {{ promise.project.initiator.username }}
 
-Gratuliere, dein Projekt "{{ project.title }}" wurde erfolgreich durch {{ project.active_promises|length }} Personen finanziert!
+Gratuliere, dein Projekt "{{ promise.project.title }}" wurde erfolgreich durch {{ promise.project.active_promises|length }} Personen finanziert!
 
 Liste der aktiven Angebote:
 
-{% for promise in project.active_promises %}
+{% for promise in promise.project.active_promises %}
 - {{ promise.name }} ({{ promise.amount }} CHF)
 {% endfor %}
+
+https://interna.coredump.ch/crowdfund/projects/{{ promise.project.pk }}/
 
 Bitte kontaktiere nun diese Personen, um die Bezahlung zu organisieren und dein Projekt umzusetzen.
 

@@ -104,7 +104,12 @@ def test_funding_emails():
             initiator__email='foo@bar.baz', title='Yolo')
     assert len(mail.outbox) == 0
     mommy.make(FundingPromise, project=p, amount=80, expiry_date=None)
-    assert len(mail.outbox) == 0
-    mommy.make(FundingPromise, project=p, amount=40, expiry_date=None)
     assert len(mail.outbox) == 1
-    assert mail.outbox[0].subject == 'Dein Projekt "Yolo" wurde finanziert!'
+    assert mail.outbox[0].subject == '80 CHF für dein Projekt "Yolo"!'
+    mommy.make(FundingPromise, project=p, amount=20, expiry_date=None)
+    assert len(mail.outbox) == 2
+    assert mail.outbox[1].subject == '20 CHF für dein Projekt "Yolo"!'
+    mommy.make(FundingPromise, project=p, amount=30, expiry_date=None)
+    assert len(mail.outbox) == 4
+    assert mail.outbox[2].subject == '30 CHF für dein Projekt "Yolo"!'
+    assert mail.outbox[3].subject == 'Dein Projekt "Yolo" wurde finanziert!'

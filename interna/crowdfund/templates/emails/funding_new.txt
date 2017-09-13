@@ -1,0 +1,9 @@
+Hallo {{ promise.project.initiator.username }}
+
+Yeah, {{ promise.name }} hat sich mit {{ promise.amount }} CHF
+an deinem Projekt "{{ project.title }}" beteiligt!
+
+https://interna.coredump.ch/crowdfund/projects/{{ promise.project.pk }}/
+
+Grüsse,
+dein Coredump Crowdfunding-System
