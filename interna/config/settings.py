@@ -1,3 +1,4 @@
+import logging
 import os
 
 from django.core.exceptions import ImproperlyConfigured
@@ -177,6 +178,13 @@ LOGGING = {
         },
     }
 }
+
+# Set up sorl thumbnails logging
+if not DEBUG:
+    from sorl.thumbnail.log import ThumbnailLogHandler
+    handler = ThumbnailLogHandler()
+    handler.setLevel(logging.ERROR)
+    logging.getLogger('sorl.thumbnail').addHandler(handler)
 
 CACHES = {
     'default': {
