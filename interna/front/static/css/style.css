@@ -109,3 +109,8 @@ body.crowdfund_list footer {
 body.members .staff-actions {
     margin-top: 20px;
 }
+
+body.member-emails .email-list {
+    max-height: 300px;
+    overflow-y: auto;
+}

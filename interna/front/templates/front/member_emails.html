@@ -1,7 +1,7 @@
 {% extends 'front/base.html' %}
 {% load tabs %}
 
-{% block bodyclass %}member_emails{% endblock %}
+{% block bodyclass %}member-emails{% endblock %}
 
 {% block navigation %}
     {% activetab 'navigation' 'members' %}
@@ -24,7 +24,7 @@
         Mailclients!</p>
 
         {# Some whitespace hacks due to the <pre> tag #}
-        <pre>{% for membership in memberships %}"{{ membership.Member.name }}" &lt;{{ membership.Member.email }}&gt;{% if not forloop.last %},{% endif %}
+        <pre class="email-list">{% for membership in memberships %}"{{ membership.Member.name }}" &lt;{{ membership.Member.email }}&gt;{% if not forloop.last %},{% endif %}
 {% endfor %}</pre>
     {% else %}
         <p>Staff only!</p>
