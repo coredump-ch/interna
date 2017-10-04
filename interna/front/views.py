@@ -26,13 +26,23 @@ class MembersView(LoginRequiredMixin, TemplateView):
     template_name = 'front/members.html'
 
     def get_context_data(self, **kwargs):
-        context = super(MembersView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         active_members = [m.Member for m in models.Membership.active.all()]
         context['active_memberships'] = models.Membership.active.order_by('Member__id')
         context['expired_members'] = set([
             m.Member for m in models.Membership.expired.order_by('start', 'Member__id')
             if m.Member not in active_members
         ])
+        return context
+
+
+class MemberEmailsView(LoginRequiredMixin, TemplateView):
+    """List email addresses of all active members."""
+    template_name = 'front/member_emails.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['memberships'] = models.Membership.active.all()
         return context
 
 

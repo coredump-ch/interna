@@ -101,3 +101,11 @@ body.crowdfund_detail .funding-progress .progress {
 body.crowdfund_list footer {
     margin-top: 24px;
 }
+
+.display-inline-block {
+    display: inline-block;
+}
+
+body.members .staff-actions {
+    margin-top: 20px;
+}

@@ -15,7 +15,15 @@
     oder neue Mitglieder hinzuzufügen, benutze das
     <a href="{% url 'admin:index' %}">Admin Interface</a>.{% endif %}</p>
 
-    <h3>Aktivmitglieder ({{ active_memberships|length }})</h3>
+
+    <div class="clearfix">
+        <h3 class="display-inline-block">Aktivmitglieder ({{ active_memberships|length }})</h3>
+        {% if user.is_staff %}
+            <div class="staff-actions pull-right">
+                <a href="{% url 'front:member_emails' %}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> E-Mail-Liste</a>
+            </div>
+        {% endif %}
+    </div>
 
     <table class="table table-striped table-hover">
         <thead>
@@ -47,6 +55,7 @@
             {% endfor %}
         </tbody>
     </table>
+
 
     {% if user.is_staff %}
 
