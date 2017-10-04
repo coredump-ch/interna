@@ -8,6 +8,13 @@
     {{ block.super }}
 {% endblock %}
 
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'front:members' %}">Mitglieder</a></li>
+    <li class="breadcrumb-item active">Mitglieder-Emails</li>
+</ol>
+{% endblock %}
+
 {% block content %}
     <h1>Mitglieder-Emails</h1>
 
