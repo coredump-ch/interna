@@ -1,0 +1,33 @@
+{% extends 'front/base.html' %}
+{% load tabs %}
+
+{% block bodyclass %}member-emails{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'members' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'front:members' %}">Mitglieder</a></li>
+    <li class="breadcrumb-item active">Mitglieder-Emails</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+    <h1>Mitglieder-Emails</h1>
+
+    {% if user.is_staff %}
+        <p>Hier werden alle E-Mail-Adressen der Aktivmitglieder aufgelistet.
+        Für ein Massenmail, kopiere die Adressen in das BCC-Feld deines
+        Mailclients!</p>
+
+        {# Some whitespace hacks due to the <pre> tag #}
+        <pre class="email-list">{% for membership in memberships %}"{{ membership.Member.name }}" &lt;{{ membership.Member.email }}&gt;{% if not forloop.last %},{% endif %}
+{% endfor %}</pre>
+    {% else %}
+        <p>Staff only!</p>
+    {% endif %}
+
+{% endblock %}
