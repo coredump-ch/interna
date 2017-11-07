@@ -1,3 +1,4 @@
+import re
 from datetime import date
 
 from django.core.urlresolvers import reverse
@@ -36,5 +37,5 @@ def test_members_view(rf):
     assert html.count('Fritzli Meier') == 1
 
     # The member should be active
-    assert '<h3>Aktivmitglieder (1)</h3>' in html
-    assert '<h3>Ehemalige Mitglieder (0)</h3>' in html
+    assert re.search(r'<h3[^>]*>Aktivmitglieder \(1\)<\/h3>', html)
+    assert re.search(r'<h3[^>]*>Ehemalige Mitglieder \(0\)<\/h3>', html)
