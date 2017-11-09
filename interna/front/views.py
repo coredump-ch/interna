@@ -44,8 +44,3 @@ class MemberEmailsView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['memberships'] = models.Membership.active.all()
         return context
-
-
-class CouponsView(LoginRequiredMixin, TemplateView):
-    """List coupon codes."""
-    template_name = 'front/coupons.html'
