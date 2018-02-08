@@ -10,7 +10,7 @@ install:
 before_script:
     - cd interna
     - createdb interna
-    - pipenv run manage.py migrate
-    - pipenv run manage.py collectstatic --noinput
+    - pipenv run ./manage.py migrate
+    - pipenv run ./manage.py collectstatic --noinput
 script:
-    - pipenv run runtests.py 
+    - pipenv run ./runtests.py
