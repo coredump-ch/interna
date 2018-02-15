@@ -5,11 +5,12 @@ python:
 env:
     - DJANGO_DEBUG=True PORT=8000 SITE_DOMAIN='http://localhost:8000' DATABASE_URL='postgres://localhost/interna'
 install:
-    - pip install -r requirements.txt
+    - pip install pipenv
+    - pipenv install --dev
 before_script:
     - cd interna
     - createdb interna
-    - ./manage.py migrate
-    - ./manage.py collectstatic --noinput
+    - pipenv run ./manage.py migrate
+    - pipenv run ./manage.py collectstatic --noinput
 script:
-    - ./runtests.py 
+    - pipenv run ./runtests.py
