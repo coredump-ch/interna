@@ -40,7 +40,10 @@ class Detail(DetailView):
 
         msg = 'Dein Beitrag wurde gespeichert, vielen Dank!'
         messages.add_message(request, messages.INFO, msg)
-        return HttpResponseRedirect(reverse('crowdfund:detail', kwargs={'pk': self.object.pk}))
+        response = HttpResponseRedirect(reverse('crowdfund:detail', kwargs={'pk': self.object.pk}))
+        response.set_cookie('last_pledge_name', form.cleaned_data.get('name'),
+                max_age=3600 * 24 * 365)
+        return response
 
 
 class Create(LoginRequiredMixin, CreateView):
