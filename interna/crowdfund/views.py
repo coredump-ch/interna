@@ -25,6 +25,7 @@ class Detail(DetailView):
         context = super().get_context_data(*args, **kwargs)
         context['fund_form'] = forms.FundingPromiseForm(initial={
             'project': self.object.pk,
+            'name': self.request.COOKIES.get('last_pledge_name', ''),
         })
         return context
 
