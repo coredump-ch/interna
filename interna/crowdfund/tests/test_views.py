@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.utils import timezone
 
+import re
 import pytest
 from model_mommy import mommy
 
@@ -52,3 +53,33 @@ def test_status_codes(client, method, url, pk, user, status_code):
     reversed_url = reverse(url) if pk is None else reverse(url, kwargs={'pk': pk})
     response = getattr(client, method.lower())(reversed_url)
     assert response.status_code == status_code
+
+
+@pytest.mark.django_db
+def test_pledge_name(client):
+    prj = mommy.make(models.Project)
+    path = '/crowdfund/projects/{}/'.format(prj.pk)
+    response = client.get(path)
+    assert response.status_code == 200
+
+    # The name input looks like this <input name="name" value="Test" maxlength="100"
+    # class="textinput textInput form-control" required="" id="id_name" type="text">
+    # value should be missing if last_pledge_name isn't set
+    match = re.search(r'value="([^"]*)".*id="id_name"', response.content.decode())
+    assert match is None
+
+    # post a pledge
+    response = client.post(path, {
+        'email': 'test@example.com',
+        'amount': '1',
+        'expiry_date': '',
+        'name': 'Test',
+        'project': prj.pk,
+        })
+    assert response.status_code == 302, response.content.decode()
+    assert response.cookies['last_pledge_name'].value == 'Test'
+
+    # value should be set now
+    response = client.get(path)
+    name_value = re.search(r'value="([^"]*)".*id="id_name"', response.content.decode()).groups()[0]
+    assert name_value == 'Test'
