@@ -11,19 +11,21 @@ Dev setup
 Voraussetzungen:
 
 - Python 3
-- pip
-- pipenv
+- Pip
 - PostgreSQL
 
 Datenbank:
 
     createdb interna
 
-[Virtualenv](https://docs.python.org/3/library/venv.html) erstellen und
+[Virtualenv](https://docs.python.org/3/library/venv.html) erstellen:
+
+    python3 -m venv VENV
+    source VENV/bin/activate
+
 Abhängigkeiten installieren:
 
-    pipenv install --dev
-    pipenv shell
+    pip install -r requirements.txt
 
 In Source-Directory wechseln:
 
