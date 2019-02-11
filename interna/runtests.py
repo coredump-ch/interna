@@ -16,4 +16,4 @@ if __name__ == '__main__':
         fullpath = os.path.join(os.path.dirname(__file__), pathdir)
         sys.path.insert(0, fullpath)
 
-    pytest.main()
+    sys.exit(pytest.main())
