@@ -215,15 +215,3 @@ else:
     EMAIL_HOST_PASSWORD = require_env('SMTP_PASS')
     EMAIL_PORT = require_env('SMTP_PORT')
     EMAIL_USE_TLS = True
-
-# Opbeat
-if not DEBUG:
-    INSTALLED_APPS += (
-        'opbeat.contrib.django',
-    )
-    OPBEAT = {
-        'ORGANIZATION_ID': '2e1b1154472c4dfa8dca73c2f48cbe59',
-        'APP_ID': '7e9d19db40',
-        'SECRET_TOKEN': require_env('OPBEAT_SECRET_TOKEN'),
-    }
-    MIDDLEWARE.insert(0, 'opbeat.contrib.django.middleware.OpbeatAPMMiddleware')

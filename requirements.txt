@@ -27,4 +27,3 @@ freezegun>=0.3.9,<0.4
 
 # Deployment
 gunicorn>=19.7.1,<19.8
-opbeat>=3.5.3,<3.6
