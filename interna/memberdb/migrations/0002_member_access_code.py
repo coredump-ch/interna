@@ -2,7 +2,12 @@
 
 
 from django.db import migrations, models
-import memberdb.access_codes
+try:
+    import memberdb.access_codes
+    generate = memberdb.access_codes.generate_access_code
+except ImportError:
+    def generate(*args, **kwargs):
+        return None
 
 
 class Migration(migrations.Migration):
@@ -15,6 +20,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='member',
             name='access_code',
-            field=models.CharField(default=memberdb.access_codes.generate_access_code, help_text='Passphrase to open the hackerspace door', max_length=100, blank=True),
+            field=models.CharField(default=generate, help_text='Passphrase to open the hackerspace door', max_length=100, blank=True),
         ),
     ]
