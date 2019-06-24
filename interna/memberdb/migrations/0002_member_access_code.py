@@ -7,7 +7,7 @@ try:
     generate = memberdb.access_codes.generate_access_code
 except ImportError:
     def generate(*args, **kwargs):
-        return None
+        return 'gone'
 
 
 class Migration(migrations.Migration):
