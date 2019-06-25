@@ -7,7 +7,6 @@ from model_utils import Choices
 
 from . import managers
 from . import validators
-from . import access_codes
 
 
 class Member(models.Model):
@@ -22,9 +21,6 @@ class Member(models.Model):
         help_text='Twitter Benutzername')
     github = models.CharField(max_length=32, blank=True,
         help_text='Github Benutzername')
-    access_code = models.CharField(max_length=100, blank=True,
-        default=access_codes.generate_access_code,
-        help_text='Passphrase to open the hackerspace door')
 
     class Meta:
         ordering = ('name', 'id')
