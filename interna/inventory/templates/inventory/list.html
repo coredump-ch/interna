@@ -1,0 +1,37 @@
+{% extends 'front/base.html' %}
+{% load tabs thumbnail %}
+
+{% block bodyclass %}inventory_list{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'inventory' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item active">Inventar</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+    <h1>Inventar</h1>
+
+    <p>Diese Seite bietet eine Übersicht über unsere Einrichtung. Aktuell sind {{ object_list|length }} Objekte erfasst.</p>
+    <p>Änderungen können von einem Vorstandsmitglied vorgenommen werden.</p>
+
+    <div id="projects">
+        {% for item in object_list %}
+            <section class="item">
+                <header>
+                    <h2><a href="{% url "inventory:detail" pk=item.pk %}">{{ item.name }}</a></h2>
+                    <p class="owner"><strong>Besitzer</strong>: {% if item.owner == 'Coredump' %}Coredump{% else %}Leihgabe von {{ item.owner }}{% endif %}</p>
+                    <p class="category"><strong>Kategorie:</strong> {{ item.get_category_display }}</p>
+                </header>
+                {% thumbnail item.image "250x180" crop="center" as im %}
+                    <a href="{% url "inventory:detail" pk=item.pk %}"><img src="{{ im.url }}" alt="Picture for '{{ item.name }}'"></a>
+                {% endthumbnail %}
+            </section>
+        {% endfor %}
+    </div>
+{% endblock %}
