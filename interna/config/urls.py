@@ -1,8 +1,9 @@
 from django.conf import settings
-from django.conf.urls import include, url
+from django.conf.urls import include
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.http import HttpResponse
+from django.urls import path
 
 from front import urls as front_urls
 from memberdb import urls as memberdb_urls
@@ -10,13 +11,13 @@ from crowdfund import urls as crowdfund_urls
 
 
 def robots(r):
-    return HttpResponse('User-agent: *\nDisallow: /', mimetype='text/plain')
+    return HttpResponse('User-agent: *\nDisallow: /', content_type='text/plain')
 
 
 urlpatterns = [
-    url(r'^', include(front_urls)),
-    url(r'^', include(memberdb_urls)),
-    url(r'^crowdfund/', include(crowdfund_urls)),
-    url(r'^admin/', admin.site.urls),
-    url(r'^robots\.txt$', robots)
+    path('', include(front_urls)),
+    path('', include(memberdb_urls)),
+    path('crowdfund/', include(crowdfund_urls)),
+    path('admin/', admin.site.urls),
+    path('robots.txt', robots)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,8 +1,8 @@
 import re
 from datetime import date
 
-from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 import pytest
 from model_mommy import mommy
