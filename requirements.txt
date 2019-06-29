@@ -1,5 +1,5 @@
 # Base system
-Django>=2.1,<2.2
+Django>=2.2,<2.3
 psycopg2==2.7.3.2
 Unipath==1.1
 dj-database-url==0.4.2
