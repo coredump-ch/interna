@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
-
-
 from django.db import models
 
 from model_utils import Choices
 
 from . import managers
-from . import validators
 
 
 class Member(models.Model):
