@@ -1,9 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 
 from . import views
 
 app_name = 'memberdb'
 
 urlpatterns = [
-    url(r'^api/members/active/$', views.ActiveMemberView.as_view(), name='api_members_active'),
+    path('api/members/active/', views.ActiveMemberView.as_view(), name='api_members_active'),
 ]
