@@ -26,7 +26,9 @@
                 <header>
                     <h2><a href="{% url "inventory:detail" pk=item.pk %}">{{ item.name }}</a></h2>
                     <p class="owner"><strong>Besitzer</strong>: {% if item.owner == 'Coredump' %}Coredump{% else %}Leihgabe von {{ item.owner }}{% endif %}</p>
+                    {% if item.category %}
                     <p class="category"><strong>Kategorie:</strong> {{ item.get_category_display }}</p>
+                    {% endif %}
                 </header>
                 {% thumbnail item.image "250x180" crop="center" as im %}
                     <a href="{% url "inventory:detail" pk=item.pk %}"><img src="{{ im.url }}" alt="Picture for '{{ item.name }}'"></a>
