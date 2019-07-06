@@ -18,7 +18,7 @@
 {% block content %}
     <h1>Inventar: {{ object.name }}</h1>
 
-    <p>{{ object.description }}</p>
+    <p>{{ object.description | linebreaksbr | urlize }}</p>
 
     <div class="row">
 
