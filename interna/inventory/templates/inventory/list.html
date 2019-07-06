@@ -10,15 +10,32 @@
 
 {% block breadcrumbs %}
 <ol class="breadcrumb">
+    {% if category %}
+    <li class="breadcrumb-item"><a href="{% url 'inventory:index' %}">Inventar</a></li>
+    <li class="breadcrumb-item active">Kategorie: {{ category.1 }}</li>
+    {% else %}
     <li class="breadcrumb-item active">Inventar</li>
+    {% endif %}
 </ol>
 {% endblock %}
 
 {% block content %}
     <h1>Inventar</h1>
 
-    <p>Diese Seite bietet eine Übersicht über unsere Einrichtung. Aktuell sind {{ object_list|length }} Objekte erfasst.</p>
+    <p>
+    Diese Seite bietet eine Übersicht über unsere Einrichtung.
+    Aktuell {{ object_list|length|pluralize:"ist,sind" }} {{ object_list|length }} Objekt{{ object_list|length|pluralize:"e" }}
+    {% if category %}
+    in der Kategorie "{{ category.1 }}"
+    {% endif %}
+    erfasst.
+    </p>
     <p>Änderungen können von einem Vorstandsmitglied vorgenommen werden.</p>
+
+    <div id="categories">
+        <strong>Kategorien: </strong> {% for key, name, count in categories %}
+        <a class="badge{% if key == category.0 %} active{% endif %}" href="?category={{ key }}">{{ name }} ({{ count }})</a> {% endfor %}<a class="badge" href="?category=none">[Keine]</a> <a class="badge" href="?">[Alle]</a>
+    </div>
 
     <div id="projects">
         {% for item in object_list %}
@@ -34,6 +51,8 @@
                     <a href="{% url "inventory:detail" pk=item.pk %}"><img src="{{ im.url }}" alt="Picture for '{{ item.name }}'"></a>
                 {% endthumbnail %}
             </section>
+        {% empty %}
+            <p><em>Keine Objekte gefunden.</em></p>
         {% endfor %}
     </div>
 {% endblock %}

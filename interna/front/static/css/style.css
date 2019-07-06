@@ -164,3 +164,7 @@ body.member-emails .email-list {
     display: inline-block;
     margin: 8px;
 }
+
+.badge.active {
+    background-color: #337ab7;
+}
