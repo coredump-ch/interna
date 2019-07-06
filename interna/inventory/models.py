@@ -1,3 +1,4 @@
+from django.core.validators import validate_slug
 from django.db import models
 
 from model_utils import Choices
@@ -17,6 +18,7 @@ class Item(models.Model):
     )
 
     identifier = models.CharField(max_length=64, primary_key=True,
+            validators=[validate_slug],
             help_text='A short lowercase identifier, e.g. "um2"')
     name = models.CharField(max_length=255,
             help_text='A short name, e.g. "Ultimaker 2+"')
