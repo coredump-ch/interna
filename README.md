@@ -44,7 +44,7 @@ Datenbank migrieren:
 
 Tests laufen lassen:
 
-    ./runtests.py
+    pytest
 
 User erstellen:
 
