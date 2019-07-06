@@ -26,7 +26,7 @@
             <table class="table table-hover table-condensed">
                 <tr>
                     <th>Kategorie</th>
-                    <td>{{ object.get_category_display }}</td>
+                    <td>{{ object.get_category_display|default:"Keine" }}</td>
                 </tr>
                 <tr>
                     <th>Besitzer</th>
@@ -60,7 +60,9 @@
         </div>
         <div class="col-md-3">
             {% thumbnail object.image "500x300" as im %}
-                <img class="image" src="{{ im.url }}" alt="Picture for object '{{ object.name }}'">
+                <a href="{{ object.image.url }}">
+                    <img class="image" src="{{ im.url }}" alt="Picture for object '{{ object.name }}'">
+                </a>
             {% endthumbnail %}
         </div>
 {% endblock %}
