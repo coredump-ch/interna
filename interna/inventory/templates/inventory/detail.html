@@ -1,0 +1,66 @@
+{% extends 'front/base.html' %}
+{% load tabs thumbnail %}
+
+{% block bodyclass %}inventory_detail{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'inventory' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'inventory:index' %}">Inventar</a></li>
+    <li class="breadcrumb-item active">{{ object.name }}</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+    <h1>Inventar: {{ object.name }}</h1>
+
+    <p>{{ object.description }}</p>
+
+    <div class="row">
+
+        <div class="col-md-9">
+            <table class="table table-hover table-condensed">
+                <tr>
+                    <th>Kategorie</th>
+                    <td>{{ object.get_category_display }}</td>
+                </tr>
+                <tr>
+                    <th>Besitzer</th>
+                    <td>{{ object.owner }}</td>
+                </tr>
+                {% if object.manager %}
+                <tr>
+                    <th>Bei Fragen melden bei</th>
+                    <td>{{ object.manager }}</td>
+                </tr>
+                {% endif %}
+                {% if object.manager %}
+                <tr>
+                    <th>Im Coredump seit</th>
+                    <td>{{ object.since }}</td>
+                </tr>
+                {% endif %}
+                {% if object.cost %}
+                <tr>
+                    <th>Kosten</th>
+                    <td>{{ object.cost }} CHF</td>
+                </tr>
+                {% endif %}
+                {% if object.howto_url %}
+                <tr>
+                    <th>Benutzungsanleitung</th>
+                    <td>{{ object.howto_url|urlize }}</td>
+                </tr>
+                {% endif %}
+            </table>
+        </div>
+        <div class="col-md-3">
+            {% thumbnail object.image "500x300" as im %}
+                <img class="image" src="{{ im.url }}" alt="Picture for object '{{ object.name }}'">
+            {% endthumbnail %}
+        </div>
+{% endblock %}

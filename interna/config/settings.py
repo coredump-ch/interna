@@ -145,6 +145,7 @@ INSTALLED_APPS = (
 
     'memberdb',
     'crowdfund',
+    'inventory',
     'front',
 )
 
