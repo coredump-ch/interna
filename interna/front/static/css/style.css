@@ -168,3 +168,11 @@ body.member-emails .email-list {
 .badge.active {
     background-color: #337ab7;
 }
+
+body.inventory_detail .actions {
+    margin-bottom: 16px;
+}
+
+body.inventory_detail img.image {
+    max-width: 100%;
+}
