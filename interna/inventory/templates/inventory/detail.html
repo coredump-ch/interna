@@ -18,11 +18,19 @@
 {% block content %}
     <h1>Inventar: {{ object.name }}</h1>
 
-    <p>{{ object.description | linebreaksbr | urlize }}</p>
-
     <div class="row">
 
-        <div class="col-md-9">
+        <div class="col-md-8">
+
+            <p>{{ object.description | linebreaksbr | urlize }}</p>
+
+            <div class="actions">
+                <a href="{% url 'inventory:label' object.pk %}" class="btn btn-primary" role="button">P-Touch Label</a>
+                {% if user.is_authenticated and user.is_staff %}
+                <a href="/admin/inventory/item/{{ object.identifier }}/" class="btn btn-warning" role="button">Edit</a>
+                {% endif %}
+            </div>
+
             <table class="table table-hover table-condensed">
                 <tr>
                     <th>Kategorie</th>
@@ -58,11 +66,12 @@
                 {% endif %}
             </table>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             {% thumbnail object.image "500x300" as im %}
                 <a href="{{ object.image.url }}">
                     <img class="image" src="{{ im.url }}" alt="Picture for object '{{ object.name }}'">
                 </a>
             {% endthumbnail %}
         </div>
+    </div>
 {% endblock %}
