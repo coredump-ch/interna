@@ -1,5 +1,5 @@
 {% extends 'front/base.html' %}
-{% load tabs thumbnail crispy_forms_tags %}
+{% load tabs thumbnail crispy_forms_tags commonmark %}
 
 {% block bodyclass %}crowdfund_detail{% endblock %}
 
@@ -40,7 +40,7 @@
             {% endthumbnail %}
 
             <div class="description">
-                {{ object.long_description|linebreaks|urlize }}
+                {{ object.long_description|commonmark|urlize }}
             </div>
 
             <h2>Diskussion</h2>
