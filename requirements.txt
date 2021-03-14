@@ -13,6 +13,7 @@ django-model-utils>=3.2,<3.3
 django-bootstrap-form==3.4
 sorl_thumbnail>=12.5,<12.6
 django-crispy-forms>=1.7,<1.8
+commonmark>=0.9,<0.10
 
 # Dev
 django-extensions>=2,<3
