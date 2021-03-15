@@ -16,6 +16,7 @@ class FundingPromiseForm(ModelForm):
         self.helper.layout = Layout(
             Field('project', type='hidden'),
             'name',
+            'email',
             AppendedText('amount', 'CHF'),
             AppendedText(
                 'expiry_date',
@@ -29,4 +30,4 @@ class FundingPromiseForm(ModelForm):
 
     class Meta:
         model = models.FundingPromise
-        fields = ('project', 'name', 'amount', 'expiry_date')
+        fields = ('project', 'name', 'email', 'amount', 'expiry_date')

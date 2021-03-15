@@ -94,6 +94,8 @@ class FundingPromise(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     name = models.CharField('Name', max_length=100,
             help_text='Dein Name')
+    email = models.EmailField('E-Mail', max_length=120,
+            help_text='Deine E-Mail-Adresse')
     amount = models.PositiveIntegerField('Betrag',
             help_text='Wie viel würdest du für dieses Projekt bezahlen?')
     created = models.DateTimeField(auto_now_add=True, editable=False,
