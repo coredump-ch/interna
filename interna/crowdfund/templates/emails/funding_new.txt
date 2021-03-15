@@ -1,6 +1,6 @@
 Hallo {{ promise.project.initiator.username }}
 
-Yeah, {{ promise.name }} hat sich mit {{ promise.amount }} CHF
+Yeah, {{ promise.name }} ({{ promise.email }}) hat sich mit {{ promise.amount }} CHF
 an deinem Projekt "{{ promise.project.title }}" beteiligt!
 
 https://interna.coredump.ch/crowdfund/projects/{{ promise.project.pk }}/
