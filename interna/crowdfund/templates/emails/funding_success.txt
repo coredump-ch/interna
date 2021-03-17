@@ -5,7 +5,7 @@ Gratuliere, dein Projekt "{{ promise.project.title }}" wurde erfolgreich durch {
 Liste der aktiven Angebote:
 
 {% for promise in promise.project.active_promises %}
-- {{ promise.name }} ({{ promise.amount }} CHF)
+- {{ promise.name }} ({{ promise.amount }} CHF, {{ promise.email }})
 {% endfor %}
 
 https://interna.coredump.ch/crowdfund/projects/{{ promise.project.pk }}/
