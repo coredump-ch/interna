@@ -15,13 +15,12 @@ jobs:
       DJANGO_DEBUG: 'True'
       PORT: '8000'
       SITE_DOMAIN: 'http://localhost:8000'
-      #DATABASE_URL: 'postgres://pg:passw0rd@localhost/interna'
-      DATABASE_URL: 'postgres://localhost/interna'
+      DATABASE_URL: 'postgres://pg:passw0rd@localhost/interna'
     services:
       postgres:
         image: postgres:13.2-alpine
         env:
-          #POSTGRES_USER: pg
+          POSTGRES_USER: pg
           POSTGRES_PASSWORD: passw0rd
           POSTGRES_DB: interna
         ports:
@@ -39,7 +38,7 @@ jobs:
         with:
           python-version: 3.5
       - name: Create database
-        run: createdb -h localhost interna
+        run: createdb -h localhost -U pg interna
         env:
           PGPASSWORD: 'passw0rd'
       - name: Install dependencies
