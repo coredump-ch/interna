@@ -1,7 +1,7 @@
 Coredump Interna
 ================
 
-[![Build Status](https://travis-ci.org/coredump-ch/interna.png?branch=master)](https://travis-ci.org/coredump-ch/interna)
+[![Build Status](https://github.com/coredump-ch/interna/workflows/CI/badge.svg)](https://github.com/coredump-ch/interna/actions?query=branch%3Amaster)
 
 Interne Platform für Mitgliederverwaltung etc...
 
