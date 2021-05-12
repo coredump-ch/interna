@@ -1,0 +1,46 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+name: CI
+
+jobs:
+
+  services:
+    postgres:
+      image: postgres:13.2-alpine
+      env:
+        POSTGRES_USER: pg
+        POSTGRES_PASSWORD: u0hioergh98kjnldfg
+        POSTGRES_DB: interna
+      ports:
+        - 5432:5432
+      # needed because the postgres container does not provide a healthcheck
+      options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+  test:
+    runs-on: ubuntu-latest
+    name: Test
+    env:
+      DJANGO_DEBUG: 'True'
+      PORT: '8000'
+      SITE_DOMAIN: 'http://localhost:8000'
+      DATABASE_URL: 'postgres://pg:u0hioergh98kjnldfg@postgres/interna'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.5
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Create database
+        run: createdb interna
+      - name: Run migrations
+        run: ./manage.py migrate
+      - name: Collect static files
+        run: ./manage.py collectstatic --noinput
+      - name: Run pytest
+        run: pytest
