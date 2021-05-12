@@ -15,14 +15,14 @@ jobs:
       DJANGO_DEBUG: 'True'
       PORT: '8000'
       SITE_DOMAIN: 'http://localhost:8000'
-      #DATABASE_URL: 'postgres://pg:u0hioergh98kjnldfg@localhost/interna'
+      #DATABASE_URL: 'postgres://pg:passw0rd@localhost/interna'
       DATABASE_URL: 'postgres://localhost/interna'
     services:
       postgres:
         image: postgres:13.2-alpine
         env:
           #POSTGRES_USER: pg
-          #POSTGRES_PASSWORD: u0hioergh98kjnldfg
+          POSTGRES_PASSWORD: passw0rd
           POSTGRES_DB: interna
         ports:
           - 5432:5432
@@ -45,7 +45,7 @@ jobs:
       - name: Create database
         run: createdb -h localhost interna
         #env:
-        #  PGPASSWORD: 'u0hioergh98kjnldfg'
+        #  PGPASSWORD: 'passw0rd'
       - name: Run migrations
         run: ./manage.py migrate
       - name: Collect static files
