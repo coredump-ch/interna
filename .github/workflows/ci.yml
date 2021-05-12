@@ -40,7 +40,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Create database
-        run: createdb interna
+        run: createdb -h postgres -U pg interna
+        env:
+          PGPASSWORD: 'u0hioergh98kjnldfg'
       - name: Run migrations
         run: ./manage.py migrate
       - name: Collect static files
