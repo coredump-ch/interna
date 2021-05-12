@@ -14,8 +14,16 @@ Voraussetzungen:
 - Pip
 - PostgreSQL
 
+System-Abhängigkeiten installieren:
+
+    # ArchLinux
+    sudo pacman -S postgresql python
+
 Datenbank:
 
+    sudo su - postgres -c "initdb --locale en_US.UTF-8 -D '/var/lib/postgres/data'"
+    sudo systemctl start postgresql.service
+    sudo su - postgres -c "createuser --createdb $USER"
     createdb interna
 
 [Virtualenv](https://docs.python.org/3/library/venv.html) erstellen:
