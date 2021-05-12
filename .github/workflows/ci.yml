@@ -38,14 +38,15 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.5
+      - name: Create database
+        run: createdb -h localhost interna
+        env:
+          PGPASSWORD: 'passw0rd'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install wheel
           pip install -r requirements.txt
-      - name: Create database
-        run: createdb -h localhost interna
-        #env:
-        #  PGPASSWORD: 'passw0rd'
       - name: Run migrations
         run: ./manage.py migrate
       - name: Collect static files
