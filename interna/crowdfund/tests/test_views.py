@@ -56,7 +56,7 @@ def test_status_codes(client, method, url, pk, user, status_code):
 
 
 @pytest.mark.django_db
-def test_pledge_name(client):
+def test_pledge_name_and_email(client):
     prj = mommy.make(models.Project)
     path = '/crowdfund/projects/{}/'.format(prj.pk)
     response = client.get(path)
@@ -78,6 +78,7 @@ def test_pledge_name(client):
         })
     assert response.status_code == 302, response.content.decode()
     assert response.cookies['last_pledge_name'].value == 'Test'
+    assert response.cookies['last_pledge_email'].value == 'test@example.com'
 
     # value should be set now
     response = client.get(path)

@@ -26,6 +26,7 @@ class Detail(DetailView):
         context['fund_form'] = forms.FundingPromiseForm(initial={
             'project': self.object.pk,
             'name': self.request.COOKIES.get('last_pledge_name', ''),
+            'email': self.request.COOKIES.get('last_pledge_email', ''),
         })
         return context
 
@@ -43,6 +44,8 @@ class Detail(DetailView):
         messages.add_message(request, messages.INFO, msg)
         response = HttpResponseRedirect(reverse('crowdfund:detail', kwargs={'pk': self.object.pk}))
         response.set_cookie('last_pledge_name', form.cleaned_data.get('name'),
+                max_age=3600 * 24 * 365)
+        response.set_cookie('last_pledge_email', form.cleaned_data.get('email'),
                 max_age=3600 * 24 * 365)
         return response
 
