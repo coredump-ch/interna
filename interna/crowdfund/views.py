@@ -35,7 +35,7 @@ class Detail(DetailView):
 
         form = forms.FundingPromiseForm(request.POST)
         if not form.is_valid():
-            return HttpResponse('Invalid form submission')
+            return HttpResponse('Invalid form submission', status=400)
         if form.cleaned_data.get('project') != self.object:
             raise ValueError('Funding project does not match current project page')
         form.save()

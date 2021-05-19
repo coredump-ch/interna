@@ -16,7 +16,7 @@ from crowdfund import models
 
     ('GET', 'crowdfund:detail', 1, None, 200),
     ('GET', 'crowdfund:detail', 999, None, 404),
-    ('POST', 'crowdfund:detail', 1, None, 200),  # Creating new promises is OK
+    ('POST', 'crowdfund:detail', 1, None, 400),  # Creating new promises needs correct form data
 
     ('GET', 'crowdfund:edit', 1, None, 302),  # Redirect to login
     ('GET', 'crowdfund:edit', 1, 1, 200),
