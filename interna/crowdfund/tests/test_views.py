@@ -65,7 +65,8 @@ def test_pledge_name_and_email(client):
     # The name input looks like this <input name="name" value="Test" maxlength="100"
     # class="textinput textInput form-control" required="" id="id_name" type="text">
     # value should be missing if last_pledge_name isn't set
-    match = re.search(r'value="([^"]*)".*id="id_name"', response.content.decode())
+    id_name_regex = re.compile(r'value="([^"]*)".*id="id_name"')
+    match = id_name_regex.search(response.content.decode())
     assert match is None
 
     # post a pledge
@@ -82,5 +83,5 @@ def test_pledge_name_and_email(client):
 
     # value should be set now
     response = client.get(path)
-    name_value = re.search(r'value="([^"]*)".*id="id_name"', response.content.decode()).groups()[0]
+    name_value = id_name_regex.search(response.content.decode()).groups()[0]
     assert name_value == 'Test'
