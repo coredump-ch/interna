@@ -25,6 +25,8 @@ class Detail(DetailView):
         context = super().get_context_data(*args, **kwargs)
         context['fund_form'] = forms.FundingPromiseForm(initial={
             'project': self.object.pk,
+            'name': self.request.COOKIES.get('last_pledge_name', ''),
+            'email': self.request.COOKIES.get('last_pledge_email', ''),
         })
         return context
 
@@ -33,14 +35,19 @@ class Detail(DetailView):
 
         form = forms.FundingPromiseForm(request.POST)
         if not form.is_valid():
-            return HttpResponse('Invalid form submission')
+            return HttpResponse('Invalid form submission', status=400)
         if form.cleaned_data.get('project') != self.object:
             raise ValueError('Funding project does not match current project page')
         form.save()
 
         msg = 'Dein Beitrag wurde gespeichert, vielen Dank!'
         messages.add_message(request, messages.INFO, msg)
-        return HttpResponseRedirect(reverse('crowdfund:detail', kwargs={'pk': self.object.pk}))
+        response = HttpResponseRedirect(reverse('crowdfund:detail', kwargs={'pk': self.object.pk}))
+        response.set_cookie('last_pledge_name', form.cleaned_data.get('name'),
+                max_age=3600 * 24 * 365)
+        response.set_cookie('last_pledge_email', form.cleaned_data.get('email'),
+                max_age=3600 * 24 * 365)
+        return response
 
 
 class Create(LoginRequiredMixin, CreateView):
