@@ -13,6 +13,7 @@ class Item(models.Model):
         ('manufacturing', '3D Printing, Scanning, Cutting, Plotting'),
         ('computers_network', 'Computers & Networking'),
         ('electronics_lab', 'Electronics Lab'),
+        ('makerspace', 'Makerspace'),
         ('home_appliances', 'Home Appliances'),
         ('vintage', 'Vintage Computers'),
     )
