@@ -1,12 +1,20 @@
-Coredump Interna
-================
+# Coredump Interna
 
 [![Build Status](https://github.com/coredump-ch/interna/workflows/CI/badge.svg)](https://github.com/coredump-ch/interna/actions?query=branch%3Amaster)
 
 Interne Platform für Mitgliederverwaltung etc...
 
-Dev setup
----------
+
+## API
+
+Es besteht eine API zum Abfragen der aktiven Mitglieder:
+
+- https://interna.coredump.ch/api/members/active/ (GET)
+
+Für die Authentisierung wird ein Session Cookie oder Basic Auth akzeptiert.
+
+
+## Dev setup
 
 Voraussetzungen:
 
