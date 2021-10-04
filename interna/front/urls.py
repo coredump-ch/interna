@@ -12,6 +12,5 @@ urlpatterns = [
     path('auth/logout/', views.LogoutView.as_view(), name='logout'),
     path('members/', views.MembersView.as_view(), name='members'),
     path('members/emails/', views.MemberEmailsView.as_view(), name='member_emails'),
-    path('projects/', TemplateView.as_view(template_name='front/projects.html'), name='projects'),
     path('wishlist/', TemplateView.as_view(template_name='front/wishlist.html'), name='wishlist'),
 ]
