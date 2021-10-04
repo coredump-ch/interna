@@ -38,9 +38,8 @@
                         <li class="{% ifactivetab 'navigation' 'home' %}active{% endifactivetab %}"><a href="{% url 'front:home' %}">Home</a></li>
                         <li class="{% ifactivetab 'navigation' 'members' %}active{% endifactivetab %}"><a href="{% url 'front:members' %}">Mitglieder</a></li>
                         <li class="{% ifactivetab 'navigation' 'inventory' %}active{% endifactivetab %}"><a href="{% url 'inventory:index' %}">Inventar</a></li>
-                        <li class="{% ifactivetab 'navigation' 'projects' %}active{% endifactivetab %}"><a href="{% url 'front:projects' %}">Projekte</a></li>
-                        <li class="{% ifactivetab 'navigation' 'wishlist' %}active{% endifactivetab %}"><a href="{% url 'front:wishlist' %}">Wishlist</a></li>
                         <li class="{% ifactivetab 'navigation' 'crowdfund' %}active{% endifactivetab %}"><a href="{% url 'crowdfund:index' %}">Crowdfund</a></li>
+                        <li class="{% ifactivetab 'navigation' 'wishlist' %}active{% endifactivetab %}"><a href="{% url 'front:wishlist' %}">Wishlist</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {% if user.is_authenticated %}
