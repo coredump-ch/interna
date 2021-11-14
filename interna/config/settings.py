@@ -42,7 +42,7 @@ DATABASES = {
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
-    ALLOWED_HOSTS = ['interna.coredump.ch']
+    ALLOWED_HOSTS = [env('ALLOWED_HOST', 'interna.coredump.ch')]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
