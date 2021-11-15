@@ -2,7 +2,6 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.views.generic.base import View, TemplateView
-from django.views.generic.list import ListView
 
 from front.mixins import LoginRequiredMixin
 from memberdb import models

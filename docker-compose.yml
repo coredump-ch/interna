@@ -1,0 +1,41 @@
+# Note: This config is not currently set up for development,
+# it's meant mostly as an example for a productive deployment.
+#
+# This setup currently does not serve static files. In order to serve static
+# files, mount the /code/interna/static directory to a directory on the host
+# and configure your web server to serve these files on /static/.
+
+version: "3.9"
+   
+volumes:
+  interna-data:
+
+services:
+  db:
+    image: docker.io/postgres:14-alpine
+    volumes:
+      - interna-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U interna"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    environment:
+      - POSTGRES_DB=interna
+      - POSTGRES_USER=interna
+      - POSTGRES_PASSWORD=TODO-CHANGEME
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      SECRET_KEY: TODO-CHANGEME
+      DATABASE_URL: postgres://interna:TODO-CHANGEME@db/interna
+      SITE_DOMAIN: http://localhost:8000
+      ALLOWED_HOST: localhost
+      SMTP_HOST: TODO-CHANGEME
+      SMTP_PORT: 1234
+      SMTP_USER: TODO-CHANGEME
+      SMTP_PASS: TODO-CHANGEME
+    depends_on:
+      - db

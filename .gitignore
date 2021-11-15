@@ -6,5 +6,6 @@
 __pycache__
 .env
 interna/media/
+venv/
 VENV/
 .mypy_cache/
