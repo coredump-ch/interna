@@ -87,6 +87,8 @@ def activetab(parser, token):
         name = bits[1]
 
     return ActiveTabNode(name, namespace)
+
+
 activetab = register.tag('activetab', activetab)
 
 
