@@ -47,3 +47,22 @@ jobs:
         run: cd interna && ./manage.py collectstatic --noinput
       - name: Run pytest
         run: cd interna && pytest
+
+  docker_image:
+    name: Build Docker image
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Docker image
+        run: |
+          docker build \
+            --no-cache \
+            -t coredump/interna:master \
+            -t coredump/interna:latest \
+            .
+      - name: Push Docker image (only on master)
+        if: github.ref == 'refs/heads/master'
+        run: |
+          docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}" && \
+          docker push -a coredump/interna
