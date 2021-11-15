@@ -45,4 +45,10 @@ echo "Create cache table…"
 ./manage.py createcachetable
 
 echo "Start server…"
-gunicorn config.wsgi:application -n interna -b 0.0.0.0:8000 -w 4 --log-level warning
+gunicorn config.wsgi:application \
+    -n interna \
+    -b 0.0.0.0:8000 \
+    -w 4 \
+    --access-logfile - \
+    --error-logfile - \
+    --log-level info
