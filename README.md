@@ -4,6 +4,8 @@
 
 Interne Platform für Mitgliederverwaltung etc...
 
+Docker image: <https://hub.docker.com/r/coredump/interna>
+
 
 ## API
 
