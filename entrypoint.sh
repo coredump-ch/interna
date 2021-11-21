@@ -44,6 +44,9 @@ fi
 echo "Create cache table…"
 ./manage.py createcachetable
 
+echo "Collect static files…"
+./manage.py collectstatic
+
 echo "Start server…"
 gunicorn config.wsgi:application \
     -n interna \

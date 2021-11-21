@@ -32,9 +32,6 @@ ADD . /code
 # Set env vars
 ENV DJANGO_DEBUG=False
 
-# Collect static files
-RUN SECRET_KEY=tmp interna/manage.py collectstatic
-
 # Entry point
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["/bin/bash", "entrypoint.sh"]
