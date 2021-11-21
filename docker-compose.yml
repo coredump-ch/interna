@@ -1,9 +1,12 @@
-# Note: This config is not currently set up for development,
-# it's meant mostly as an example for a productive deployment.
+# Note: This config is not currently set up for development, it's meant mostly
+# as an example for a productive deployment.
 #
 # This setup currently does not serve static files. In order to serve static
 # files, mount the /code/interna/static directory to a directory on the host
 # and configure your web server to serve these files on /static/.
+#
+# Additionally, you should ensure that the media files are put into a named
+# volume or bind mount as well.
 
 version: "3.9"
    

@@ -32,6 +32,9 @@ ADD . /code
 # Set env vars
 ENV DJANGO_DEBUG=False
 
+# Volumes
+VOLUME ["/code/interna/static/", "/code/interna/media/"]
+
 # Entry point
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["/bin/bash", "entrypoint.sh"]
