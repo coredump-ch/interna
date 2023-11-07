@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 from datetime import date
 
 from pytest import mark
@@ -9,7 +6,7 @@ from model_mommy import mommy
 from .. import models
 
 
-class TestMembershipModel(object):
+class TestMembershipModel:
 
     @mark.django_db
     def test_active_memberships(self):
