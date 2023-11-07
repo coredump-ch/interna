@@ -35,7 +35,10 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': dj_database_url.config(),
+    'default': dj_database_url.config(
+        conn_max_age=600,
+        conn_health_checks=True,
+    ),
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
