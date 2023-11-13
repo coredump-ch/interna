@@ -21,12 +21,15 @@ Für die Authentisierung wird ein Session Cookie oder Basic Auth akzeptiert.
 Voraussetzungen:
 
 - Python 3
-- Pip
-- PostgreSQL
+- Docker
 
-Datenbank:
+Container mit PostgreSQL starten:
 
-    createdb interna
+    docker run -d --name interna-pg \
+      -e POSTGRES_DB=interna \
+      -e POSTGRES_USER=interna \
+      -e POSTGRES_PASSWORD=interna-dev-password \
+      -p 127.0.0.1:5432:5432 docker.io/postgres:14-alpine
 
 [Virtualenv](https://docs.python.org/3/library/venv.html) erstellen:
 
@@ -45,7 +48,7 @@ Umgebungsvariablen definieren (`.env` Datei wird automatisch geladen):
 
     echo "DJANGO_DEBUG=True" >> .env
     echo "SITE_DOMAIN='http://localhost:8000'" >> .env
-    echo "DATABASE_URL='postgres://localhost/interna'" >> .env
+    echo "DATABASE_URL='postgres://interna:interna-dev-password@localhost/interna'" >> .env
 
 Datenbank migrieren:
 
