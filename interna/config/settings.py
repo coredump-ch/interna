@@ -143,7 +143,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'messagegroups',
-    'django_extensions',
     'bootstrapform',
     'rest_framework',
     'sorl.thumbnail',
