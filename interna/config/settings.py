@@ -49,6 +49,7 @@ if DEBUG:
     ALLOWED_HOSTS = []
 else:
     ALLOWED_HOSTS = [env('ALLOWED_HOST', 'interna.coredump.ch')]
+    CSRF_TRUSTED_ORIGINS = ['https://' + ALLOWED_HOSTS[0]]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
