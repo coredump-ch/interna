@@ -1,5 +1,5 @@
 {% extends 'front/base.html' %}
-{% load tabs bootstrap %}
+{% load tabs crispy_forms_tags %}
 
 {% block bodyclass %}login{% endblock %}
 
@@ -16,7 +16,7 @@
 
     <form role="form" action="{% url 'front:login' %}" method="post">
         {% csrf_token %}
-        {{ form|bootstrap }}
+        {{ form }}
         <button type="submit" class="btn btn-primary">Login</button>
         <input type="hidden" name="next" value="{{ next }}" />
     </form>

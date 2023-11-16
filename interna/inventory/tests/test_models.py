@@ -10,8 +10,8 @@ def test_identifier_validation():
     item.name = 'Foobar'
     item.owner = 'Der Foobär'
 
-    errmsg = 'Bitte ein gültiges Kürzel eingeben, bestehend aus Buchstaben, ' + \
-             'Ziffern, Unter- und Bindestrichen.'
+    errmsg = 'Bitte ein gültiges Kürzel, bestehend aus Buchstaben, Ziffern, ' + \
+             'Unterstrichen und Bindestrichen, eingeben.'
     exception = "{'identifier': ['%s']}" % errmsg
 
     item.identifier = 'foo bar'

@@ -4,7 +4,7 @@ from django.utils import timezone
 
 import re
 import pytest
-from model_mommy import mommy
+from model_bakery import baker
 
 from crowdfund import models
 
@@ -38,10 +38,10 @@ def test_status_codes(client, method, url, pk, user, status_code):
     get_user_model().objects.create_user(pk=2, username='user2', password='1235')
 
     # PK 1: Ongoing project by user 1
-    mommy.make(models.Project, pk=1, image=None, initiator=u1, funded=None)
+    baker.make(models.Project, pk=1, image=None, initiator=u1, funded=None)
 
     # PK 2: Funded project by user 1
-    mommy.make(models.Project, pk=2, image=None, initiator=u1, funded=timezone.now())
+    baker.make(models.Project, pk=2, image=None, initiator=u1, funded=timezone.now())
 
     # Login
     if user == 1:
@@ -57,7 +57,7 @@ def test_status_codes(client, method, url, pk, user, status_code):
 
 @pytest.mark.django_db
 def test_pledge_name_and_email(client):
-    prj = mommy.make(models.Project)
+    prj = baker.make(models.Project)
     path = '/crowdfund/projects/{}/'.format(prj.pk)
     response = client.get(path)
     assert response.status_code == 200

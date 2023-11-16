@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 
 import pytest
-from model_mommy import mommy
+from model_bakery import baker
 
 from memberdb import models
 from front import views
@@ -19,10 +19,10 @@ def test_members_view(rf):
     As a side effect, this also tests #9.
 
     """
-    m = mommy.make(models.Member, name='Fritzli Meier')
-    u = mommy.make(get_user_model(), is_staff=True, is_superuser=True)
-    mommy.make(models.Membership, Member=m, start=date(2014, 7, 12), end=date(2015, 9, 16))
-    mommy.make(models.Membership, Member=m, start=date(2016, 1, 1), end=None)
+    m = baker.make(models.Member, name='Fritzli Meier')
+    u = baker.make(get_user_model(), is_staff=True, is_superuser=True)
+    baker.make(models.Membership, Member=m, start=date(2014, 7, 12), end=date(2015, 9, 16))
+    baker.make(models.Membership, Member=m, start=date(2016, 1, 1), end=None)
 
     request = rf.get(reverse('front:members'))
     request.user = u

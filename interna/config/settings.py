@@ -35,8 +35,13 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': dj_database_url.config(),
+    'default': dj_database_url.config(
+        conn_max_age=600,
+        conn_health_checks=True,
+    ),
 }
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -60,10 +65,6 @@ SITE_ID = 1
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
-
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale.
-USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
@@ -138,8 +139,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'messagegroups',
-    'django_extensions',
-    'bootstrapform',
     'rest_framework',
     'sorl.thumbnail',
     'crispy_forms',
@@ -210,6 +209,8 @@ CACHES = {
         'LOCATION': 'django_cache',
     }
 }
+
+FORM_RENDERER = 'django.forms.renderers.DjangoDivFormRenderer'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
