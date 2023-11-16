@@ -2,7 +2,7 @@ from datetime import date
 
 from django.contrib.auth.models import User
 from pytest import mark
-from model_mommy import mommy
+from model_bakery import baker
 from rest_framework.test import APIRequestFactory, force_authenticate
 
 from .. import models, views
@@ -15,17 +15,17 @@ class TestMembershipView:
         # Test data: Create 3 members, 2 of them active
         start = date(2013, 10, 10)
         end = date(2013, 10, 12)
-        member1_active = mommy.make(models.Member)
-        member2_active = mommy.make(models.Member)
-        member3_inactive = mommy.make(models.Member)
-        mommy.make(models.Membership, Member=member1_active, start=start, end=None)
-        mommy.make(models.Membership, Member=member2_active, start=start, end=date(2099, 10, 10))
-        mommy.make(models.Membership, Member=member3_inactive, start=start, end=end)
+        member1_active = baker.make(models.Member)
+        member2_active = baker.make(models.Member)
+        member3_inactive = baker.make(models.Member)
+        baker.make(models.Membership, Member=member1_active, start=start, end=None)
+        baker.make(models.Membership, Member=member2_active, start=start, end=date(2099, 10, 10))
+        baker.make(models.Membership, Member=member3_inactive, start=start, end=end)
         assert models.Membership.active.count() == 2
         assert models.Membership.expired.count() == 1
 
         # Test user
-        user = mommy.make(User, is_staff=True)
+        user = baker.make(User, is_staff=True)
 
         # Create an API request
         factory = APIRequestFactory()
@@ -58,7 +58,7 @@ class TestMembershipView:
     @mark.parametrize('staff', [True, False])
     def test_admin_required(self, staff: bool):
         print(staff)
-        user = mommy.make(User, is_staff=staff)
+        user = baker.make(User, is_staff=staff)
 
         factory = APIRequestFactory()
         view = views.ActiveMemberView.as_view()

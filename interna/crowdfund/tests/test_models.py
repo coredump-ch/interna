@@ -3,7 +3,7 @@ from datetime import datetime
 from django.core import mail
 
 from freezegun import freeze_time
-from model_mommy import mommy
+from model_bakery import baker
 import pytest
 import pytz
 
@@ -13,7 +13,7 @@ from crowdfund.models import Project, FundingPromise
 @pytest.mark.django_db
 def test_empty_project():
     with freeze_time('2017-01-01'):
-        p = mommy.make(Project, image=None, amount_required=500)
+        p = baker.make(Project, image=None, amount_required=500)
     assert p.amount_funded() == 0
     assert p.percent_funded() == 0
     assert len(p.active_promises()) == 0
@@ -24,11 +24,11 @@ def test_empty_project():
 
 @pytest.mark.django_db
 def test_regular_project():
-    p1 = mommy.make(Project, image=None, amount_required=500)
-    p2 = mommy.make(Project, image=None, amount_required=800)
-    mommy.make(FundingPromise, project=p1, amount=100, expiry_date=None)
-    mommy.make(FundingPromise, project=p1, amount=200, expiry_date=None)
-    mommy.make(FundingPromise, project=p2, amount=400, expiry_date=None)
+    p1 = baker.make(Project, image=None, amount_required=500)
+    p2 = baker.make(Project, image=None, amount_required=800)
+    baker.make(FundingPromise, project=p1, amount=100, expiry_date=None)
+    baker.make(FundingPromise, project=p1, amount=200, expiry_date=None)
+    baker.make(FundingPromise, project=p2, amount=400, expiry_date=None)
     assert p1.amount_funded() == 300
     assert p2.amount_funded() == 400
     assert p1.percent_funded() == 60
@@ -44,7 +44,7 @@ def test_regular_project():
 @pytest.mark.django_db
 def test_funded_freeze():
     with freeze_time('2017-01-01'):
-        p1 = mommy.make(Project, image=None, amount_required=120)
+        p1 = baker.make(Project, image=None, amount_required=120)
         assert p1.amount_funded() == 0
         assert p1.percent_funded() == 0
         assert p1.funded is None
@@ -52,7 +52,7 @@ def test_funded_freeze():
 
     # First promise without expiration
     with freeze_time('2017-01-02'):
-        mommy.make(FundingPromise, project=p1, amount=80, expiry_date=None)
+        baker.make(FundingPromise, project=p1, amount=80, expiry_date=None)
         assert p1.amount_funded() == 80
         assert p1.percent_funded() == 66
         assert len(p1.active_promises()) == 1
@@ -60,7 +60,7 @@ def test_funded_freeze():
 
     # Second promise with expiration, not enough to trigger funding
     with freeze_time('2017-01-03'):
-        mommy.make(FundingPromise, project=p1, amount=30,
+        baker.make(FundingPromise, project=p1, amount=30,
                 expiry_date=datetime(2017, 1, 4, tzinfo=pytz.utc))
         assert p1.amount_funded() == 110
         assert p1.percent_funded() == 91
@@ -73,7 +73,7 @@ def test_funded_freeze():
 
     # Create a new expiring promise that reaches the funding goal
     with freeze_time('2017-01-05'):
-        mommy.make(FundingPromise, project=p1, amount=50,
+        baker.make(FundingPromise, project=p1, amount=50,
                 expiry_date=datetime(2017, 1, 7, tzinfo=pytz.utc))
         assert p1.amount_funded() == 130
         assert p1.funded == datetime(2017, 1, 5, tzinfo=pytz.utc)
@@ -85,7 +85,7 @@ def test_funded_freeze():
 
     # We can also add further promises
     with freeze_time('2017-01-07'):
-        mommy.make(FundingPromise, project=p1, amount=10,
+        baker.make(FundingPromise, project=p1, amount=10,
                 expiry_date=datetime(2017, 1, 8, tzinfo=pytz.utc))
         assert p1.amount_funded() == 140
 
@@ -100,16 +100,16 @@ def test_funded_freeze():
 
 @pytest.mark.django_db
 def test_funding_emails():
-    p = mommy.make(Project, image=None, amount_required=120,
+    p = baker.make(Project, image=None, amount_required=120,
             initiator__email='foo@bar.baz', title='Yolo')
     assert len(mail.outbox) == 0
-    mommy.make(FundingPromise, project=p, amount=80, expiry_date=None)
+    baker.make(FundingPromise, project=p, amount=80, expiry_date=None)
     assert len(mail.outbox) == 1
     assert mail.outbox[0].subject == '80 CHF für dein Projekt "Yolo"!'
-    mommy.make(FundingPromise, project=p, amount=20, expiry_date=None)
+    baker.make(FundingPromise, project=p, amount=20, expiry_date=None)
     assert len(mail.outbox) == 2
     assert mail.outbox[1].subject == '20 CHF für dein Projekt "Yolo"!'
-    mommy.make(FundingPromise, project=p, amount=30, expiry_date=None)
+    baker.make(FundingPromise, project=p, amount=30, expiry_date=None)
     assert len(mail.outbox) == 4
     assert mail.outbox[2].subject == '30 CHF für dein Projekt "Yolo"!'
     assert mail.outbox[3].subject == 'Dein Projekt "Yolo" wurde finanziert!'

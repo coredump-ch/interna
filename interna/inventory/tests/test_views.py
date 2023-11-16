@@ -3,7 +3,7 @@ from typing import Optional
 from django.urls import reverse
 
 import pytest
-from model_mommy import mommy
+from model_bakery import baker
 
 from inventory import views
 from inventory.models import Item
@@ -23,10 +23,10 @@ def query_index_by_category(rf, category: Optional[str]):
 
 @pytest.mark.django_db
 def test_filtering(rf):
-    mommy.make(Item, name='C64', category='vintage')
-    mommy.make(Item, name='Apple II', category='vintage')
-    mommy.make(Item, name='Ultimaker', category='manufacturing')
-    mommy.make(Item, name='Unknown', category=None)
+    baker.make(Item, name='C64', category='vintage')
+    baker.make(Item, name='Apple II', category='vintage')
+    baker.make(Item, name='Ultimaker', category='manufacturing')
+    baker.make(Item, name='Unknown', category=None)
 
     # List all elements
     html = query_index_by_category(rf, category=None)
