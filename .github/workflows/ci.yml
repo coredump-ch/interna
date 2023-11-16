@@ -18,7 +18,7 @@ jobs:
       DATABASE_URL: 'postgres://pg:passw0rd@localhost/interna'
     services:
       postgres:
-        image: postgres:13.2-alpine
+        image: postgres:14-alpine
         env:
           POSTGRES_USER: pg
           POSTGRES_PASSWORD: passw0rd
@@ -36,7 +36,7 @@ jobs:
       - name: Setup python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.10'
+          python-version: '3.11'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
