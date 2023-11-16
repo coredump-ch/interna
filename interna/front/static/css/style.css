@@ -3,6 +3,18 @@ iframe.fullwidth {
     height: 700px;
 }
 
+form ul.errorlist {
+    color: #d30000;
+}
+
+body.login form div {
+    margin: 0 0 8px;
+}
+
+body.login form label {
+    width: 130px;
+}
+
 body.members table {
     font-size: 0.85em;
 }

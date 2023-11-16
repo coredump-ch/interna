@@ -139,7 +139,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'messagegroups',
-    'bootstrapform',
     'rest_framework',
     'sorl.thumbnail',
     'crispy_forms',
@@ -210,6 +209,8 @@ CACHES = {
         'LOCATION': 'django_cache',
     }
 }
+
+FORM_RENDERER = 'django.forms.renderers.DjangoDivFormRenderer'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
