@@ -13,7 +13,7 @@
 #
 # See docker-compose.yml as an example on how to run this image.
 
-FROM docker.io/python:3.12-slim-bullseye
+FROM docker.io/python:3.13-slim-bullseye
 
 # Add requirements file
 ADD requirements.txt /code/requirements.txt
