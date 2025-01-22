@@ -81,4 +81,38 @@
         </tbody>
     </table>
 
+    <h3>Schlüsselliste ({{ key_holders|length }})</h3>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <th>Name</th>
+            <th>Schlüssel</th>
+        </thead>
+        <tbody>
+            {% for member in key_holders %}
+                <tr>
+                    <td>{{ member.name }}</td>
+                    <td>{{ member.key_number }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Schlüsselsafe-Zugang ({{ safe_access|length }})</h3>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <th>Name</th>
+            <th>Zugangsart</th>
+        </thead>
+        <tbody>
+            {% for member in safe_access %}
+                <tr>
+                    <td>{{ member.name }}</td>
+                    <td>{{ member.get_key_safe_display }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}
