@@ -1,9 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth import logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.views.generic.base import View, TemplateView
 
-from front.mixins import LoginRequiredMixin
 from memberdb import models
 
 
