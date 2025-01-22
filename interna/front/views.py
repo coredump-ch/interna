@@ -20,6 +20,11 @@ class LogoutView(View):
         return redirect('front:home')
 
 
+class HandbuchView(TemplateView):
+    """Show Coredump Handbuch."""
+    template_name = 'front/handbuch.html'
+
+
 class MembersView(StaffRequiredMixin, TemplateView):
     """List members."""
     template_name = 'front/members.html'

@@ -1,0 +1,28 @@
+{% extends 'front/base.html' %}
+{% load tabs %}
+
+{% block bodyclass %}handbuch{% endblock %}
+
+{% block navigation %}
+    {% activetab 'navigation' 'handbuch' %}
+    {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item active">Handbuch</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+    <h1>Handbuch</h1>
+
+    <p>Das Coredump-Handbuch findest du unter folgender URL:
+    <a href="https://coredump-ch.github.io/handbuch/">https://coredump-ch.github.io/handbuch/</a>.</p>
+
+    <p>Ergänzungen, Verbesserungen und Erweiterungen des Handbuchs sind herzlich willkommen!
+    Details dazu findest du
+    <a href="https://coredump-ch.github.io/handbuch/handbuch.html">hier</a>.</p>
+
+    <p><a href="https://coredump-ch.github.io/handbuch/" class="btn btn-primary">Handbuch öffnen</a></p>
+{% endblock %}
