@@ -32,6 +32,15 @@ class MembersView(StaffRequiredMixin, TemplateView):
             m.Member for m in models.Membership.expired.order_by('start', 'Member__id')
             if m.Member not in active_members
         ])
+        context['key_holders'] = models.Member.objects \
+            .filter(key_number__isnull=False) \
+            .exclude(key_number='') \
+            .order_by('key_number')
+        context['safe_access'] = models.Member.objects \
+            .filter(key_safe__isnull=False) \
+            .exclude(key_safe='') \
+            .exclude(key_safe=models.Member.SafeAccessType.NONE) \
+            .order_by('key_safe')
         return context
 
 
