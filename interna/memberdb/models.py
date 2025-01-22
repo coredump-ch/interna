@@ -10,6 +10,7 @@ class Member(models.Model):
     class SafeAccessType(models.TextChoices):
         APP = 'app', 'App'
         CODE = 'code', 'Code'
+        NONE = 'none', 'Nein'
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
