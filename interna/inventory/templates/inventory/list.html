@@ -1,5 +1,5 @@
 {% extends 'front/base.html' %}
-{% load tabs thumbnail %}
+{% load tabs thumbnail static %}
 
 {% block bodyclass %}inventory_list{% endblock %}
 
@@ -49,6 +49,8 @@
                 </header>
                 {% thumbnail item.image "250x180" crop="center" as im %}
                     <a href="{% url "inventory:detail" pk=item.pk %}"><img src="{{ im.url }}" alt="Picture for '{{ item.name }}'"></a>
+                {% empty %}
+                    <a href="{% url "inventory:detail" pk=item.pk %}"><img src="{% static 'img/placeholder.svg' %}" width="250" height="180" style="object-fit: cover;" alt="Picture for '{{ item.name }}'"></a>
                 {% endthumbnail %}
             </section>
         {% empty %}
