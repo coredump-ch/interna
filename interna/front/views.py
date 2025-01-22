@@ -40,7 +40,7 @@ class MembersView(StaffRequiredMixin, TemplateView):
             .filter(key_safe__isnull=False) \
             .exclude(key_safe='') \
             .exclude(key_safe=models.Member.SafeAccessType.NONE) \
-            .order_by('key_safe')
+            .order_by('key_safe', 'name')
         return context
 
 
