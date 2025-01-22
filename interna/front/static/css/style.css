@@ -118,6 +118,10 @@ body.crowdfund_list footer {
     display: inline-block;
 }
 
+body.members section {
+    margin-bottom: 2.5em;
+}
+
 body.members .staff-actions {
     margin-top: 20px;
 }
@@ -125,6 +129,10 @@ body.members .staff-actions {
 body.member-emails .email-list {
     max-height: 300px;
     overflow-y: auto;
+}
+
+body.members .former-members summary {
+    display: list-item;
 }
 
 #items {
