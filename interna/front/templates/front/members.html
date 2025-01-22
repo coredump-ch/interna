@@ -17,18 +17,14 @@
 {% block content %}
     <h1>Mitglieder</h1>
 
-    <p>Unsere aktuellen Mitglieder. {% if user.is_staff %}Um Einträge zu ändern
-    oder neue Mitglieder hinzuzufügen, benutze das
-    <a href="{% url 'admin:index' %}">Admin Interface</a>.{% endif %}</p>
-
+    <p>Unsere aktuellen Mitglieder. Um Einträge zu ändern oder neue Mitglieder hinzuzufügen, benutze das
+    <a href="{% url 'admin:index' %}">Admin Interface</a>.</p>
 
     <div class="clearfix">
         <h3 class="display-inline-block">Aktivmitglieder ({{ active_memberships|length }})</h3>
-        {% if user.is_staff %}
-            <div class="staff-actions pull-right">
-                <a href="{% url 'front:member_emails' %}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> E-Mail-Liste</a>
-            </div>
-        {% endif %}
+        <div class="staff-actions pull-right">
+            <a href="{% url 'front:member_emails' %}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> E-Mail-Liste</a>
+        </div>
     </div>
 
     <table class="table table-striped table-hover">
@@ -64,9 +60,6 @@
         </tbody>
     </table>
 
-
-    {% if user.is_staff %}
-
     <h3>Ehemalige Mitglieder ({{ expired_members|length }})</h3>
 
     <table class="table table-striped table-hover">
@@ -87,7 +80,5 @@
             {% endfor %}
         </tbody>
     </table>
-
-    {% endif %}
 
 {% endblock %}

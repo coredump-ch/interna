@@ -1,6 +1,7 @@
 from datetime import date
 
 from django.contrib.auth.models import User
+import django.test
 from pytest import mark
 from model_bakery import baker
 from rest_framework.test import APIRequestFactory, force_authenticate
@@ -8,8 +9,7 @@ from rest_framework.test import APIRequestFactory, force_authenticate
 from .. import models, views
 
 
-class TestMembershipView:
-
+class TestApiMembershipView:
     @mark.django_db
     def test_active_members(self):
         # Test data: Create 3 members, 2 of them active
@@ -57,7 +57,6 @@ class TestMembershipView:
     @mark.django_db
     @mark.parametrize('staff', [True, False])
     def test_admin_required(self, staff: bool):
-        print(staff)
         user = baker.make(User, is_staff=staff)
 
         factory = APIRequestFactory()
@@ -71,3 +70,39 @@ class TestMembershipView:
         else:
             assert response.status_code == 403
             assert response.data['detail'].code == 'permission_denied'
+
+
+class TestMembersView:
+    @mark.django_db
+    @mark.parametrize('staff', [True, False])
+    def test_admin_required(self, client: django.test.Client, staff: bool):
+        # Auth
+        user = baker.make(User, is_staff=staff)
+        client.force_login(user)
+
+        # Request
+        response = client.get('/members/')
+
+        # Verify
+        if staff:
+            assert response.status_code == 200
+            assert b'Aktivmitglieder' in response.content
+        else:
+            assert response.status_code == 403
+            assert b'Aktivmitglieder' not in response.content
+
+    @mark.django_db
+    @mark.parametrize('staff', [True, False])
+    def test_emails_admin_required(self, client: django.test.Client, staff: bool):
+        # Auth
+        user = baker.make(User, is_staff=staff)
+        client.force_login(user)
+
+        # Request
+        response = client.get('/members/emails/')
+
+        # Verify
+        if staff:
+            assert response.status_code == 200
+        else:
+            assert response.status_code == 403

@@ -3,8 +3,8 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.views.generic.base import View, TemplateView
 
-from front.mixins import LoginRequiredMixin
 from memberdb import models
+from .mixins import StaffRequiredMixin
 
 
 class HomeView(TemplateView):
@@ -20,7 +20,7 @@ class LogoutView(View):
         return redirect('front:home')
 
 
-class MembersView(LoginRequiredMixin, TemplateView):
+class MembersView(StaffRequiredMixin, TemplateView):
     """List members."""
     template_name = 'front/members.html'
 
@@ -35,7 +35,7 @@ class MembersView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class MemberEmailsView(LoginRequiredMixin, TemplateView):
+class MemberEmailsView(StaffRequiredMixin, TemplateView):
     """List email addresses of all active members."""
     template_name = 'front/member_emails.html'
 

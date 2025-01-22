@@ -1,9 +1,9 @@
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
-class LoginRequiredMixin:
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
+class StaffRequiredMixin(UserPassesTestMixin, LoginRequiredMixin):
+    """
+    Require login as staff.
+    """
+    def test_func(self):
+        return self.request.user.is_staff
