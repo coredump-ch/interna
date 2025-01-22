@@ -6,7 +6,8 @@
     "name": "Donald Knuth",
     "email": "knuth@example.com",
     "phone": "+41 79 000 11 22",
-    "city": "Stanford"
+    "city": "Stanford",
+    "key_safe": "app"
   }
 },
 {
@@ -16,7 +17,9 @@
     "name": "Ada Lovelace",
     "email": "ada@example.com",
     "phone": "+41 78 000 33 44",
-    "city": "London"
+    "city": "London",
+    "key_number": "13",
+    "key_safe": "code"
   }
 },
 {
