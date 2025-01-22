@@ -66,6 +66,7 @@ User erstellen:
 Testdaten laden (optional):
 
     ./manage.py loaddata --app crowdfund testdata
+    ./manage.py loaddata --app memberdb testdata
 
 Entwicklungsserver starten:
 

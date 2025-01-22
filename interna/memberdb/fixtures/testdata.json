@@ -1,0 +1,66 @@
+[
+{
+  "model": "memberdb.member",
+  "pk": 1,
+  "fields": {
+    "name": "Donald Knuth",
+    "email": "knuth@example.com",
+    "phone": "+41 79 000 11 22",
+    "city": "Stanford",
+    "key_safe": "app"
+  }
+},
+{
+  "model": "memberdb.member",
+  "pk": 2,
+  "fields": {
+    "name": "Ada Lovelace",
+    "email": "ada@example.com",
+    "phone": "+41 78 000 33 44",
+    "city": "London",
+    "key_number": "13",
+    "key_safe": "code"
+  }
+},
+{
+  "model": "memberdb.member",
+  "pk": 3,
+  "fields": {
+    "name": "Marvin Minsky",
+    "email": "marvin@example.com",
+    "phone": "+41 77 000 55 66",
+    "city": "Massachusetts"
+  }
+},
+{
+  "model": "memberdb.membership",
+  "pk": 1,
+  "fields": {
+    "Member": 1,
+    "start": "2017-08-20",
+    "category": 2,
+    "ccc": false
+  }
+},
+{
+  "model": "memberdb.membership",
+  "pk": 2,
+  "fields": {
+    "Member": 2,
+    "start": "2020-08-20",
+    "category": 1,
+    "ccc": true
+  }
+},
+{
+  "model": "memberdb.membership",
+  "pk": 3,
+  "fields": {
+    "Member": 3,
+    "start": "2015-08-20",
+    "end": "2020-08-20",
+    "category": 1,
+    "ccc": true
+  }
+}
+]

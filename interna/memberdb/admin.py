@@ -4,9 +4,9 @@ from . import models
 
 
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'city', 'twitter', 'github')
-    search_fields = ('name', 'pk', 'email', 'phone', 'city', 'twitter', 'github')
-    list_filter = ('city',)
+    list_display = ('name', 'email', 'city', 'github', 'key_number', 'key_safe')
+    search_fields = ('name', 'pk', 'email', 'phone', 'city', 'github', 'key_number', 'key_safe')
+    list_filter = ('city', 'key_safe')
 
 
 class MembershipAdmin(admin.ModelAdmin):
