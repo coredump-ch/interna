@@ -20,99 +20,110 @@
     <p>Unsere aktuellen Mitglieder. Um Einträge zu ändern oder neue Mitglieder hinzuzufügen, benutze das
     <a href="{% url 'admin:index' %}">Admin Interface</a>.</p>
 
-    <div class="clearfix">
-        <h3 class="display-inline-block">Aktivmitglieder ({{ active_memberships|length }})</h3>
-        <div class="staff-actions pull-right">
-            <a href="{% url 'front:member_emails' %}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> E-Mail-Liste</a>
+    <section>
+        <div class="clearfix">
+            <h3 class="display-inline-block">Aktivmitglieder ({{ active_memberships|length }})</h3>
+            <div class="staff-actions pull-right">
+                <a href="{% url 'front:member_emails' %}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> E-Mail-Liste</a>
+            </div>
         </div>
-    </div>
 
-    <table class="table table-striped table-hover">
-        <thead>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Natel</th>
-            <th>Wohnort</th>
-            <th>Github</th>
-            <th>Schlüssel</th>
-            <th>Safe-Zugang</th>
-            <th>CCC</th>
-            <th>Mitglied seit</th>
-        </thead>
-        <tbody>
-            {% for membership in active_memberships %}
-                {% with member=membership.Member %}
+        <table class="table table-striped table-hover">
+            <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Natel</th>
+                <th>Wohnort</th>
+                <th>Github</th>
+                <th>Schlüssel</th>
+                <th>Safe-Zugang</th>
+                <th>CCC</th>
+                <th>Mitglied seit</th>
+            </thead>
+            <tbody>
+                {% for membership in active_memberships %}
+                    {% with member=membership.Member %}
+                        <tr>
+                            <td>{{ member.id }}</td>
+                            <td>{{ member.name }}</td>
+                            <td>{{ member.email|urlize }}</td>
+                            <td>{{ member.phone }}</td>
+                            <td>{{ member.city }}</td>
+                            <td>{% if member.github %}<a href="https://github.com/{{ member.github }}">{{ member.github }}</a>{% endif %}</td>
+                            <td>{{ member.key_number|default:"-" }}</td>
+                            <td>{{ member.get_key_safe_display|default:"-" }}</td>
+                            <td>{{ membership.ccc|yesno:"Ja,Nein" }}</td>
+                            <td>{{ membership.start|date:"Y-m-d" }}</td>
+                        </tr>
+                    {% endwith %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h3>Ehemalige Mitglieder ({{ expired_members|length }})</h3>
+
+        <details class="former-members">
+        <summary>Anzeigen</summary>
+        <table class="table table-striped table-hover">
+            <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Wohnort</th>
+            </thead>
+            <tbody>
+                {% for member in expired_members %}
                     <tr>
                         <td>{{ member.id }}</td>
                         <td>{{ member.name }}</td>
                         <td>{{ member.email|urlize }}</td>
-                        <td>{{ member.phone }}</td>
                         <td>{{ member.city }}</td>
-                        <td>{% if member.github %}<a href="https://github.com/{{ member.github }}">{{ member.github }}</a>{% endif %}</td>
-                        <td>{{ member.key_number|default:"-" }}</td>
-                        <td>{{ member.get_key_safe_display|default:"-" }}</td>
-                        <td>{{ membership.ccc|yesno:"Ja,Nein" }}</td>
-                        <td>{{ membership.start|date:"Y-m-d" }}</td>
                     </tr>
-                {% endwith %}
-            {% endfor %}
-        </tbody>
-    </table>
+                {% endfor %}
+            </tbody>
+        </table>
+        </details>
+    </section>
 
-    <h3>Ehemalige Mitglieder ({{ expired_members|length }})</h3>
+    <section>
+        <h3>Schlüsselliste ({{ key_holders|length }})</h3>
 
-    <table class="table table-striped table-hover">
-        <thead>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Wohnort</th>
-        </thead>
-        <tbody>
-            {% for member in expired_members %}
-                <tr>
-                    <td>{{ member.id }}</td>
-                    <td>{{ member.name }}</td>
-                    <td>{{ member.email|urlize }}</td>
-                    <td>{{ member.city }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <table class="table table-striped table-hover">
+            <thead>
+                <th>Name</th>
+                <th>Schlüssel</th>
+            </thead>
+            <tbody>
+                {% for member in key_holders %}
+                    <tr>
+                        <td>{{ member.name }}</td>
+                        <td>{{ member.key_number }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
 
-    <h3>Schlüsselliste ({{ key_holders|length }})</h3>
+    <section>
+        <h3>Schlüsselsafe-Zugang ({{ safe_access|length }})</h3>
 
-    <table class="table table-striped table-hover">
-        <thead>
-            <th>Name</th>
-            <th>Schlüssel</th>
-        </thead>
-        <tbody>
-            {% for member in key_holders %}
-                <tr>
-                    <td>{{ member.name }}</td>
-                    <td>{{ member.key_number }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <h3>Schlüsselsafe-Zugang ({{ safe_access|length }})</h3>
-
-    <table class="table table-striped table-hover">
-        <thead>
-            <th>Name</th>
-            <th>Zugangsart</th>
-        </thead>
-        <tbody>
-            {% for member in safe_access %}
-                <tr>
-                    <td>{{ member.name }}</td>
-                    <td>{{ member.get_key_safe_display }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <table class="table table-striped table-hover">
+            <thead>
+                <th>Name</th>
+                <th>Zugangsart</th>
+            </thead>
+            <tbody>
+                {% for member in safe_access %}
+                    <tr>
+                        <td>{{ member.name }}</td>
+                        <td>{{ member.get_key_safe_display }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
 
 {% endblock %}
