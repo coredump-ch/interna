@@ -1,0 +1,13 @@
+- model: inventory.item
+  pkg: 1
+  fields:
+    identifier: um2
+    name: Ultimaker 2+
+    description: Unser FDM-3D-Drucker.
+    image: testdata/um2.jpg
+    owner: Coredump
+    manager: Danilo
+    category: manufacturing
+    since: 2015-08-30
+    cost: 2500
+    howto_url: https://forum.coredump.ch/t/howto-3d-drucken/69

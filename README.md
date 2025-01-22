@@ -67,6 +67,7 @@ Testdaten laden (optional):
 
     ./manage.py loaddata --app crowdfund testdata
     ./manage.py loaddata --app memberdb testdata
+    ./manage.py loaddata --app inventory testdata
 
 Entwicklungsserver starten:
 
