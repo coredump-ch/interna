@@ -38,7 +38,6 @@
             <th>Email</th>
             <th>Natel</th>
             <th>Wohnort</th>
-            <th>Twitter</th>
             <th>Github</th>
             <th>CCC</th>
             <th>Mitglied seit</th>
@@ -52,7 +51,6 @@
                         <td>{{ member.email|urlize }}</td>
                         <td>{{ member.phone }}</td>
                         <td>{{ member.city }}</td>
-                        <td>{% if member.twitter %}<a href="https://twitter.com/{{ member.twitter }}">{{ member.twitter }}</a>{% endif %}</td>
                         <td>{% if member.github %}<a href="https://github.com/{{ member.github }}">{{ member.github }}</a>{% endif %}</td>
                         <td>{{ membership.ccc|yesno:"Ja,Nein" }}</td>
                         <td>{{ membership.start|date:"Y-m-d" }}</td>
