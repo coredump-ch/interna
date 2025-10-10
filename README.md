@@ -1,6 +1,6 @@
 # Coredump Interna
 
-[![Build Status](https://github.com/coredump-ch/interna/workflows/CI/badge.svg)](https://github.com/coredump-ch/interna/actions?query=branch%3Amaster)
+[![Build Status](https://github.com/coredump-ch/interna/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/coredump-ch/interna/actions?query=branch%3Amaster)
 
 Interne Platform für Mitgliederverwaltung etc...
 
